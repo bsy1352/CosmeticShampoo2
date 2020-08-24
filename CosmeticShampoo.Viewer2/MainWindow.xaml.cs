@@ -26,6 +26,7 @@ namespace CosmeticShampoo.Viewer2
         UserMenu Create;
         UserMenu Message;
         UserMenu Ticket;
+
         public MainWindow()
         {
             InitializeComponent();
