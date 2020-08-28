@@ -32,8 +32,6 @@ namespace CosmeticShampoo.Viewer2.Utility_Views
 
             _parent = Parent;
 
-            ExpanderMenu.Visibility = itemMenu.SubItems == null ? Visibility.Collapsed : Visibility.Visible;
-            ////ListViewItemMenu.Visibility = itemMenu.SubItems == null ? Visibility.Visible : Visibility.Collapsed;
 
             this.DataContext = itemMenu;
 
@@ -46,36 +44,36 @@ namespace CosmeticShampoo.Viewer2.Utility_Views
 
         private static ListViewItem listItem { get; set; }
 
-        private void ExpanderMenu_LostFocus(object sender, RoutedEventArgs e)
-        {
-            this.ExpanderMenu.IsExpanded = false;
-        }
+        //private void ExpanderMenu_LostFocus(object sender, RoutedEventArgs e)
+        //{
+        //    this.ExpanderMenu.IsExpanded = false;
+        //}
 
-        private void PackIcon_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (isExpanded == false)
-            {
-                isExpanded = true;
-                this.ExpanderMenu.IsExpanded = true;
-            }
-            else if (isExpanded == true)
-            {
-                isExpanded = false;
-                this.ExpanderMenu.IsExpanded = false;
-            }
-        }
+        //private void PackIcon_MouseDown(object sender, MouseButtonEventArgs e)
+        //{
+        //    if (isExpanded == false)
+        //    {
+        //        isExpanded = true;
+        //        this.ExpanderMenu.IsExpanded = true;
+        //    }
+        //    else if (isExpanded == true)
+        //    {
+        //        isExpanded = false;
+        //        this.ExpanderMenu.IsExpanded = false;
+        //    }
+        //}
 
 
 
-        private void ExpanderMenu_MouseEnter(object sender, MouseEventArgs e)
-        {
-            ExpanderMenu.IsExpanded = true;
-        }
+        //private void ExpanderMenu_MouseEnter(object sender, MouseEventArgs e)
+        //{
+        //    ExpanderMenu.IsExpanded = true;
+        //}
 
-        private void ExpanderMenu_MouseLeave(object sender, MouseEventArgs e)
-        {
-            ExpanderMenu.IsExpanded = false;
-        }
+        //private void ExpanderMenu_MouseLeave(object sender, MouseEventArgs e)
+        //{
+        //    ExpanderMenu.IsExpanded = false;
+        //}
 
 
 

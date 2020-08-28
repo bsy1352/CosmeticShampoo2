@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="CosmeticShampoo.Viewer2.Utility_Views.UserMenuDropDown"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:local="clr-namespace:CosmeticShampoo.Viewer2.Utility_Views"
+             mc:Ignorable="d" FontFamily="Nanumsquare" Initialized="UserControl_Initialized" Loaded="UserControl_Loaded">
+
+    <Grid Margin="0 10 0 10">
+        <StackPanel  Width="240"  >
+            <Button Background="Transparent" BorderThickness="0" Height="40" Margin="0 10 0 0" Click="Button_Click">
+                <StackPanel Orientation="Horizontal" Width="217"  >
+                    <iconPacks:PackIconMaterial Kind="{Binding Path=Icon}" Opacity="0.5" VerticalAlignment="Center" Margin="15 0 0 0" Foreground="Black" Height="23" Width="23" />
+                    <TextBlock Text="{Binding Header}" Width="116" Height="24" FontFamily="NanumSquare ExtraBold" Margin="35 0 0 0" FontSize="19"/>
+                    <Image x:Name="Arrow" Source="/Images/Icons/Arrow.png" Width="20" Height="24" Margin="5 0 0 0"/>
+                </StackPanel>
+            </Button>
+            <ListView x:Name="dropdownPanel" Background="Transparent" BorderThickness="0" ItemsSource="{Binding Path=SubItems}" Visibility="Collapsed" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Button Background="Transparent" BorderThickness="0" Margin="0 10 0 0" >
+                            <TextBlock Text="{Binding Path=Name}" Width="87" Height="24" Margin="90 0 0 0" FontSize="20"/>
+                        </Button>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            
+        </StackPanel>
+
+
+    </Grid>
+</UserControl>

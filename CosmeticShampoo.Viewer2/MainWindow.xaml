@@ -7,79 +7,88 @@
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
         Title="MainWindow" Height="1080" Width="1920" WindowStartupLocation="CenterScreen" WindowStyle="None" Initialized="Window_Initialized" WindowState="Maximized">
+    
+    
+
     <Grid>
-        <Grid/>
-        <Border Background="LightGray">
-            <!--<Border.Background>
+        <Grid>
+            <Border Background="LightGray">
+                <!--<Border.Background>
                 <LinearGradientBrush>
                     <GradientStop Color="#FFFD4893" Offset="0.3"/>
                     <GradientStop Color="#ffffff" Offset="1"/>
                 </LinearGradientBrush>
             </Border.Background>-->
-        </Border>
-        <Rectangle  Fill="White" RadiusX="15" RadiusY="15"  Margin="180,90">
-            <Rectangle.BitmapEffect>
-                <DropShadowBitmapEffect Color="Black" Direction="-55" ShadowDepth="50" Opacity="0.3" Softness=".8"/>
-            </Rectangle.BitmapEffect>
-        </Rectangle>
-        <Grid Margin="180,90,180,90">
+            </Border>
+            <Rectangle  Fill="White" RadiusX="15" RadiusY="15"  Margin="180,90">
+                <Rectangle.BitmapEffect>
+                    <DropShadowBitmapEffect Color="Black" Direction="-55" ShadowDepth="50" Opacity="0.3" Softness=".8"/>
+                </Rectangle.BitmapEffect>
+            </Rectangle>
+            <Grid Margin="180,90,180,90">
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="70"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="250"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-
-            <Grid Grid.Row="0" Grid.Column="1" >
-                <Border CornerRadius="0,15,0,0"  Background="#FFFFE7F1">
-                    <!-- ...set your desired border brush color here... -->
-                </Border>
-
-                <Button Background="Transparent" HorizontalAlignment="Right" VerticalAlignment="Center" BorderBrush="Transparent" Padding="0" BorderThickness="0" Margin="0,17,19,15"  Height="38" Width="38" Click="Exit_Click">
-                    <iconPacks:PackIconMaterial Kind="Logout" VerticalAlignment="Center" Opacity="0.5" HorizontalAlignment="Left" Foreground="#FFFD4893" Height="38" Width="36"/>
-                    <!--<Image Source="/Images/Icons/power.png" Stretch="Fill" Height="35" Width="36"/>-->
-                </Button>
-
-
-            </Grid>
-            <Grid Grid.Row="1" Grid.Column="1" >
-                <Border CornerRadius="0,0,15,0"  Background="#FFFFE7F1">
-                    <!-- ...set your desired border brush color here... -->
-                </Border>
-            </Grid>
-
-            <Grid Grid.Column="0" Grid.RowSpan="2">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="230"/>
-                    <RowDefinition/>
                     <RowDefinition Height="70"/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <iconPacks:PackIconMaterial Kind="AccountCircle" VerticalAlignment="Center" Opacity="0.5" HorizontalAlignment="Center" Foreground="#FFFD4893" Height="136" Width="185" Margin="28,30,37,64"/>
-                    <Border BorderThickness="0 0 0 1" BorderBrush="Black" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="58,0,67,28" Width="125" >
-                        <TextBlock Text="홍 길 동" FontFamily="Nanumsquare" TextAlignment="Center" FontSize=" 22" VerticalAlignment="Bottom" HorizontalAlignment="Center"   Width="150" Margin="22,0,23,0" Height="29" />
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="250"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Row="0" Grid.Column="1" >
+                    <Border CornerRadius="0,15,0,0"  Background="#FFFFE7F1">
+                        <!-- ...set your desired border brush color here... -->
                     </Border>
 
-                </Grid>
-                <Grid Grid.Row="1">
-                    <ScrollViewer HorizontalAlignment="Stretch" Width="250" HorizontalScrollBarVisibility="Disabled"  VerticalScrollBarVisibility="Auto" Height="592" >
-                        <StackPanel x:Name="Menu" Margin="10"/>
-                    </ScrollViewer>
-                </Grid>
-                <Grid Grid.Row="2">
-                    <iconPacks:PackIconMaterial Kind="Cog" VerticalAlignment="Center" Opacity="0.5" HorizontalAlignment="Left" Foreground="#FFFD4893" Height="38" Width="36" Margin="20,0,0,0"/>
+                    <Button Background="Transparent" HorizontalAlignment="Right" VerticalAlignment="Center" BorderBrush="Transparent" Padding="0" BorderThickness="0" Margin="0,17,19,15"  Height="38" Width="38" Click="Exit_Click">
+                        <iconPacks:PackIconMaterial Kind="Logout" VerticalAlignment="Center" Opacity="0.5" HorizontalAlignment="Left" Foreground="#FFFD4893" Height="38" Width="36"/>
+                        <!--<Image Source="/Images/Icons/power.png" Stretch="Fill" Height="35" Width="36"/>-->
+                    </Button>
+
 
                 </Grid>
+                <Grid Grid.Row="1" Grid.Column="1" >
+                    <Border CornerRadius="0,0,15,0"  Background="#FFFFE7F1">
+                        <!-- ...set your desired border brush color here... -->
+                    </Border>
+                </Grid>
+
+                <Grid Grid.Column="0" Grid.RowSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="230"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="70"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <iconPacks:PackIconMaterial Kind="AccountCircle" VerticalAlignment="Center" Opacity="0.5" HorizontalAlignment="Center" Foreground="#FFFD4893" Height="136" Width="185" Margin="28,30,37,64"/>
+                        <Border BorderThickness="0 0 0 1" BorderBrush="Black" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="58,0,67,28" Width="125" >
+                            <TextBlock Text="홍 길 동" FontFamily="Nanumsquare" TextAlignment="Center" FontSize=" 22" VerticalAlignment="Bottom" HorizontalAlignment="Center"   Width="150" Margin="22,0,23,0" Height="29" />
+                        </Border>
+
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <ScrollViewer HorizontalAlignment="Stretch" Width="250" HorizontalScrollBarVisibility="Disabled"  VerticalScrollBarVisibility="Auto" Height="592" >
+                            <StackPanel x:Name="Menu" Margin="10"/>
+                        </ScrollViewer>
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <iconPacks:PackIconMaterial Kind="Cog" VerticalAlignment="Center" Opacity="0.5" HorizontalAlignment="Left" Foreground="#FFFD4893" Height="38" Width="36" Margin="20,0,0,0"/>
+                        <StackPanel Margin="40,-113,83,35" Background="White">
+                            <Button Content="계정"></Button>
+                            <Button Content="프로그램 정보"></Button>
+                            <Button Content="로그아웃"></Button>
+                        </StackPanel>
+
+                    </Grid>
+                </Grid>
+
+
+
+
+
             </Grid>
 
-
-
-
-
         </Grid>
-
     </Grid>
 </Window>

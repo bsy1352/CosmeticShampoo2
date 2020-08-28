@@ -15,7 +15,7 @@ namespace CosmeticShampoo.Viewer2.ViewModels
             Icon = icon;
         }
 
-        public ItemMenu(string header, UserControl screen, PackIconMaterialKind icon)
+        public ItemMenu(string header, PackIconMaterialKind icon, UserControl screen = null)
         {
             Header = header;
             Screen = screen;

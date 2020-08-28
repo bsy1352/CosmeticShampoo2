@@ -23,9 +23,8 @@ namespace CosmeticShampoo.Viewer2
     /// </summary>
     public partial class MainWindow : Window
     {
-        UserMenu Create;
-        UserMenu Message;
-        UserMenu Ticket;
+        UserMenu Dashboard;
+        UserMenuDropDown ProgramSetting;
 
         public MainWindow()
         {
@@ -52,41 +51,28 @@ namespace CosmeticShampoo.Viewer2
             //menuSetting.Add(new SubItem("Employees"));
             //menuSetting.Add(new SubItem("Products"));
 
-            var menuControl = new List<SubItem>();
-            menuControl.Add(new SubItem("Customer"));
-            menuControl.Add(new SubItem("Provider"));
-            menuControl.Add(new SubItem("Employees"));
-            menuControl.Add(new SubItem("Products"));
+          
+            var item1 = new ItemMenu("대시보드", PackIconMaterialKind.MonitorDashboard);
 
-            var item1 = new ItemMenu("Control", menuControl, PackIconMaterialKind.Account);
+            var menuProgramSetting = new List<SubItem>();
+            menuProgramSetting.Add(new SubItem("Customer"));
+            menuProgramSetting.Add(new SubItem("Provider"));
+            menuProgramSetting.Add(new SubItem("Employees"));
+            menuProgramSetting.Add(new SubItem("Products"));
 
-            var menuTickets = new List<SubItem>();
-            menuTickets.Add(new SubItem("Customer"));
-            menuTickets.Add(new SubItem("Provider"));
-            menuTickets.Add(new SubItem("Employees"));
-            menuTickets.Add(new SubItem("Products"));
+            var item2 = new ItemMenu("프로그램 설정", menuProgramSetting, PackIconMaterialKind.Robot);
 
-            var item2 = new ItemMenu("Tickets", menuTickets, PackIconMaterialKind.Account);
-
-            var menuMessage = new List<SubItem>();
-            menuMessage.Add(new SubItem("Customer"));
-            menuMessage.Add(new SubItem("Provider"));
-            menuMessage.Add(new SubItem("Employees"));
-            menuMessage.Add(new SubItem("Products"));
-
-            var item3 = new ItemMenu("Message", menuMessage, PackIconMaterialKind.Account);
+            Dashboard = new UserMenu(item1, this);
+            ProgramSetting = new UserMenuDropDown(item2, this);
+            
 
 
-            Create = new UserMenu(item1, this);
-            Ticket = new UserMenu(item2, this);
-            Message = new UserMenu(item3, this);
-
-
-            Menu.Children.Add(Create);
-            Menu.Children.Add(Ticket);
-            Menu.Children.Add(Message);
+            Menu.Children.Add(Dashboard);
+            Menu.Children.Add(ProgramSetting);
             DataContext = this;
 
         }
     }
+
+   
 }

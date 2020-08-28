@@ -76,6 +76,9 @@
     <Compile Include="Utility_Views\Opening.xaml.cs">
       <DependentUpon>Opening.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utility_Views\UserMenuDropDown.xaml.cs">
+      <DependentUpon>UserMenuDropDown.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\ItemMenu.cs" />
     <Compile Include="ViewModels\SubItem.cs" />
     <Page Include="MainWindow.xaml">
@@ -103,6 +106,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Utility_Views\Opening.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Utility_Views\UserMenuDropDown.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -159,6 +166,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="shampoo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\Arrow.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

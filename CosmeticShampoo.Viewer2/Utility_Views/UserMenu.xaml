@@ -6,11 +6,16 @@
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:local="clr-namespace:CosmeticShampoo.Viewer2.Utility_Views"
              mc:Ignorable="d" BorderThickness="0" FontFamily="NanumSquare ExtraBold" Background="Transparent">
-    <Grid>
-        <iconPacks:PackIconMaterial Kind="{Binding Path=Icon}" VerticalAlignment="Center" Opacity="0.5" HorizontalAlignment="Left" Foreground="Black" Margin="10 16" Width="15"  Height="15" />
-        <ListBoxItem x:Name="ListViewItemMenu" Content="{Binding Path=Header}" Padding="37 14" FontSize="15" Foreground="Black"/>
-        <Expander x:Name="ExpanderMenu" Content="{Binding Path=Header}" IsExpanded="False" Width="210" HorizontalAlignment="Right" Background="{x:Null}" Foreground="Black">
-            
-        </Expander>
+    <Grid Height="70">
+        <StackPanel Width="200" VerticalAlignment="Center">
+            <Button Background="Transparent" BorderThickness="0">
+                <StackPanel Orientation="Horizontal" Width="196">
+                    <iconPacks:PackIconMaterial Kind="{Binding Path=Icon}" Opacity="0.5" VerticalAlignment="Center" Margin="10" Foreground="Black" Height="23" Width="23"   />
+                    <TextBlock Text="{Binding Path=Header}" Foreground="Black" Width="87" Height="24" Margin="30 0 0 0" FontSize="20"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+
+
     </Grid>
 </UserControl>
