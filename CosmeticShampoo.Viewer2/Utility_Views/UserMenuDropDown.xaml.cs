@@ -50,7 +50,6 @@ namespace CosmeticShampoo.Viewer2.Utility_Views
         {
             if (isCollapsed)
             {
-                
                 dropdownPanel.Visibility = Visibility.Visible;
                 dropdownPanel.BeginAnimation(ListView.HeightProperty, myDoubleAnimation);
                 rotation.BeginAnimation(RotateTransform.AngleProperty, myDoubleAnimationArrowUp);

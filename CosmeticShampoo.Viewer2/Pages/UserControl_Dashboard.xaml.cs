@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace CosmeticShampoo.Viewer2.Pages
 {
     /// <summary>
-    /// Window1.xaml에 대한 상호 작용 논리
+    /// UserControl_Dashboard.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class Window1 : Window
+    public partial class UserControl_Dashboard : UserControl
     {
-        public Window1()
+        public UserControl_Dashboard()
         {
             InitializeComponent();
         }

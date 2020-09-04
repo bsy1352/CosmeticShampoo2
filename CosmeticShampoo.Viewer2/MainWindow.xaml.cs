@@ -42,6 +42,19 @@ namespace CosmeticShampoo.Viewer2
             
         }
 
+        internal void SwitchScreens(object sender)
+        {
+            var screen = (UserControl)sender;
+
+
+            if (screen != null)
+            {
+                MainView.Children.Clear();
+                MainView.Children.Add(screen);
+                return;
+            }
+        }
+
         private void Window_Initialized(object sender, EventArgs e)
         {
             
@@ -71,6 +84,11 @@ namespace CosmeticShampoo.Viewer2
             Menu.Children.Add(ProgramSetting);
             DataContext = this;
 
+        }
+
+        private void PopUpMenuBtn_Click(object sender, RoutedEventArgs e)
+        {
+            PopUpMenu.Visibility = Visibility.Visible;
         }
     }
 

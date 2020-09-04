@@ -31,10 +31,7 @@ namespace CosmeticShampoo.Viewer2.Utility_Views
             InitializeComponent();
 
             _parent = Parent;
-
-
             this.DataContext = itemMenu;
-
 
 
         }
@@ -43,6 +40,8 @@ namespace CosmeticShampoo.Viewer2.Utility_Views
 
 
         private static ListViewItem listItem { get; set; }
+
+    
 
         //private void ExpanderMenu_LostFocus(object sender, RoutedEventArgs e)
         //{
@@ -113,6 +112,10 @@ namespace CosmeticShampoo.Viewer2.Utility_Views
 
         }
 
+        private void ShowViewButton_Clicked(object sender, RoutedEventArgs e)
+        {
+            _parent.SwitchScreens(((ItemMenu)DataContext).Screen);
+        }
     }
 
     public class personInListConverter : IValueConverter

@@ -8,7 +8,7 @@
              mc:Ignorable="d" BorderThickness="0" FontFamily="NanumSquare ExtraBold" Background="Transparent">
     <Grid Height="70">
         <StackPanel Width="200" VerticalAlignment="Center">
-            <Button Background="Transparent" BorderThickness="0">
+            <Button Background="Transparent" BorderThickness="0" Click="ShowViewButton_Clicked">
                 <StackPanel Orientation="Horizontal" Width="196">
                     <iconPacks:PackIconMaterial Kind="{Binding Path=Icon}" Opacity="0.5" VerticalAlignment="Center" Margin="10" Foreground="Black" Height="23" Width="23"   />
                     <TextBlock Text="{Binding Path=Header}" Foreground="Black" Width="87" Height="24" Margin="30 0 0 0" FontSize="20"/>
