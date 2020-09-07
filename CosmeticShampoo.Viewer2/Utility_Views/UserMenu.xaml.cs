@@ -33,7 +33,6 @@ namespace CosmeticShampoo.Viewer2.Utility_Views
             _parent = Parent;
             this.DataContext = itemMenu;
 
-
         }
 
         private static ListView listView { get; set; }
@@ -116,6 +115,8 @@ namespace CosmeticShampoo.Viewer2.Utility_Views
         {
             _parent.SwitchScreens(((ItemMenu)DataContext).Screen);
         }
+
+      
     }
 
     public class personInListConverter : IValueConverter

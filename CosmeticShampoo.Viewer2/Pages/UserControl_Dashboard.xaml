@@ -6,7 +6,11 @@
              xmlns:local="clr-namespace:CosmeticShampoo.Viewer2.Pages"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    
+    <Grid >
+        <Border CornerRadius="0 15 15 0">
+
+        </Border>
         <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="대시보드 페이지"></TextBlock>
     </Grid>
 </UserControl>

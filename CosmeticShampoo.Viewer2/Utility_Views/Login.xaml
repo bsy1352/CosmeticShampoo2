@@ -52,12 +52,12 @@
                 <Grid Grid.Row="0">
                     <Grid Background="LightGray"  VerticalAlignment="Top" HorizontalAlignment="Center" >
                         <TextBlock x:Name="usernameHint" Text="Username" HorizontalAlignment="Center" IsEnabled="False" Width="228" Padding="5,0,0,0"  Opacity="1" Margin="2,10,0,11"/>
-                        <TextBox x:Name="username" HorizontalAlignment="Center" Width="230" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0" Opacity="0.5" TextChanged="username_TextChanged" GotFocus="username_GotFocus"/>
+                        <TextBox x:Name="username" HorizontalAlignment="Center" Width="230" Padding="5,0,0,0" VerticalContentAlignment="Center" BorderThickness="0" Opacity="0.5" TextChanged="username_TextChanged" PreviewKeyDown="EnterBtn_KeyDown" GotFocus="username_GotFocus"/>
                         <iconPacks:PackIconMaterial Kind="Account" VerticalAlignment="Center" Opacity="0.5" HorizontalAlignment="Left" Foreground="Black" Height="25"  Margin="202,0,0,0"/>
                     </Grid>
                     <Grid Background="LightGray"  VerticalAlignment="Top" HorizontalAlignment="Center" Height="33" Margin="56,39,56,0" >
                         <TextBlock x:Name="passwordHint" Text="Password" HorizontalAlignment="Center" IsEnabled="False" Width="228" Padding="5,0,0,0" Margin="2,9,0,8"  />
-                        <TextBox x:Name="password" HorizontalAlignment="Center" Width="230" Padding="5,0,0,0" Height="33" VerticalContentAlignment="Center" BorderThickness="0" Opacity="0.5" TextChanged="password_TextChanged" GotFocus="password_GotFocus"/>
+                        <TextBox x:Name="password" HorizontalAlignment="Center" Width="230" Padding="5,0,0,0" Height="33" VerticalContentAlignment="Center" BorderThickness="0" Opacity="0.5" TextChanged="password_TextChanged" PreviewKeyDown="EnterBtn_KeyDown" GotFocus="password_GotFocus"/>
                         <iconPacks:PackIconMaterial Kind="Security" VerticalAlignment="Center" Opacity="0.5" HorizontalAlignment="Left" Foreground="Black" Height="25"  Margin="202,0,0,0"/>
                     </Grid>
 

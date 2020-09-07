@@ -179,5 +179,8 @@
   <ItemGroup>
     <Resource Include="Images\Icons\Arrow.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\windowLock.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

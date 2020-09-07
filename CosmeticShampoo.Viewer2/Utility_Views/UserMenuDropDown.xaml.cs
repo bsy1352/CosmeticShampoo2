@@ -30,6 +30,7 @@ namespace CosmeticShampoo.Viewer2.Utility_Views
         DoubleAnimation myDoubleAnimationArrowDown = new DoubleAnimation(180, 0, new Duration(TimeSpan.FromSeconds(0.3)));
         RotateTransform rotation = new RotateTransform();
         private bool isCollapsed = true;
+
         public UserMenuDropDown(ItemMenu itemMenu, MainWindow parent)
         {
             this.DataContext = itemMenu;
@@ -37,14 +38,17 @@ namespace CosmeticShampoo.Viewer2.Utility_Views
 
 
             InitializeComponent();
-
+            
             
 
         }
-        
 
 
-        
+        private void listView_Click(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("Hello");
+        }
+
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -76,9 +80,15 @@ namespace CosmeticShampoo.Viewer2.Utility_Views
             myDoubleAnimation.To = 200;
             myDoubleAnimation.Duration = new Duration(TimeSpan.FromSeconds(0.8));
 
-            
+            Image Arrow = btn.Template.FindName("Arrow", this) as Image;
+
             Arrow.RenderTransform = rotation;
             Arrow.RenderTransformOrigin = new Point(0.5, 0.5);
+        }
+
+        private void ShowViewButton_Clicked(object sender, RoutedEventArgs e)
+        {
+            _parent.SwitchScreens(((ItemMenu)DataContext).Screen);
         }
     }
 

@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:local="clr-namespace:CosmeticShampoo.Viewer2.Utility_Views"
-             mc:Ignorable="d" BorderThickness="0" FontFamily="NanumSquare ExtraBold" Background="Transparent">
+             mc:Ignorable="d" BorderThickness="0" FontFamily="NanumSquare ExtraBold" Background="Transparent" >
     <Grid Height="70">
         <StackPanel Width="200" VerticalAlignment="Center">
             <Button Background="Transparent" BorderThickness="0" Click="ShowViewButton_Clicked">

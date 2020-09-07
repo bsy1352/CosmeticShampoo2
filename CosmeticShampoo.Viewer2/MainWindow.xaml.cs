@@ -1,4 +1,5 @@
-﻿using CosmeticShampoo.Viewer2.Utility_Views;
+﻿using CosmeticShampoo.Viewer2.Pages;
+using CosmeticShampoo.Viewer2.Utility_Views;
 using CosmeticShampoo.Viewer2.ViewModels;
 using MahApps.Metro.IconPacks;
 using System;
@@ -65,7 +66,7 @@ namespace CosmeticShampoo.Viewer2
             //menuSetting.Add(new SubItem("Products"));
 
           
-            var item1 = new ItemMenu("대시보드", PackIconMaterialKind.MonitorDashboard);
+            var item1 = new ItemMenu("대시보드", PackIconMaterialKind.MonitorDashboard, new UserControl_Dashboard());
 
             var menuProgramSetting = new List<SubItem>();
             menuProgramSetting.Add(new SubItem("Customer"));
@@ -89,6 +90,23 @@ namespace CosmeticShampoo.Viewer2
         private void PopUpMenuBtn_Click(object sender, RoutedEventArgs e)
         {
             PopUpMenu.Visibility = Visibility.Visible;
+        }
+
+        private void LogOut_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult messageBoxResult = MessageBox.Show("로그아웃 하시겠습니까?" + Environment.NewLine + "로그아웃 시, 잠금화면으로 전환됩니다", "Log Out", MessageBoxButton.OKCancel);
+
+            if(messageBoxResult == MessageBoxResult.OK)
+            {
+                ScreenLock.Visibility = Visibility.Visible;
+                Login login = new Login(this);
+                login.ShowDialog();
+            }
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            PopUpMenu.Visibility = Visibility.Collapsed;
         }
     }
 

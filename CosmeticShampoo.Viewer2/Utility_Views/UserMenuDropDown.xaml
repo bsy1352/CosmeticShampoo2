@@ -7,23 +7,86 @@
              xmlns:local="clr-namespace:CosmeticShampoo.Viewer2.Utility_Views"
              mc:Ignorable="d" FontFamily="Nanumsquare" Initialized="UserControl_Initialized" Loaded="UserControl_Loaded">
 
+
+
     <Grid Margin="0 10 0 10">
         <StackPanel  Width="240"  >
-            <Button Background="Transparent" BorderThickness="0" Height="40" Margin="0 10 0 0" Click="Button_Click">
-                <StackPanel Orientation="Horizontal" Width="217"  >
-                    <iconPacks:PackIconMaterial Kind="{Binding Path=Icon}" Opacity="0.5" VerticalAlignment="Center" Margin="15 0 0 0" Foreground="Black" Height="23" Width="23" />
-                    <TextBlock Text="{Binding Header}" Width="116" Height="24" FontFamily="NanumSquare ExtraBold" Margin="35 0 0 0" FontSize="19"/>
-                    <Image x:Name="Arrow" Source="/Images/Icons/Arrow.png" Width="20" Height="24" Margin="5 0 0 0"/>
-                </StackPanel>
+            <Button x:Name="btn" Background="Transparent" BorderThickness="0" Height="40" Margin="0 10 0 0" Click="Button_Click">
+                <Button.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <StackPanel Orientation="Horizontal" Width="217"  >
+                                        <iconPacks:PackIconMaterial Kind="{Binding Path=Icon}" Opacity="0.5" VerticalAlignment="Center" Margin="15 0 0 0" Foreground="Black" Height="23" Width="23" />
+                                        <TextBlock x:Name="txtValue" Text="{Binding Header}" Width="115" Height="24" FontFamily="NanumSquare ExtraBold" Margin="35 0 0 0" FontSize="19"/>
+
+                                        <Image x:Name="Arrow" Source="/Images/Icons/Arrow.png" Width="20" Height="24" Margin="5 0 0 0"/>
+                                    </StackPanel>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="Transparent"/>
+                            </Trigger>
+
+                        </Style.Triggers>
+                    </Style>
+                </Button.Resources>
             </Button>
             <ListView x:Name="dropdownPanel" Background="Transparent" BorderThickness="0" ItemsSource="{Binding Path=SubItems}" Visibility="Collapsed" ScrollViewer.VerticalScrollBarVisibility="Hidden">
-                <ListView.ItemTemplate>
+                <ListView.Resources>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Style.Setters>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                        <TextBlock Text="{Binding Path=Name}" Height="24" Margin="90 10 0 10" FontSize="20"/>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style.Setters>
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="False">
+                                <Setter Property="Foreground" Value="Black" />
+                                <Setter Property="FontWeight" Value="Normal" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Foreground" Value="Black" />
+                                <Setter Property="FontWeight" Value="900" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                    <!--<Style  TargetType="{x:Type ListViewItem}">
+                        <Style.Resources>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Style.Setters>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                                <TextBlock Text="{Binding Path=Name}" Height="24" Margin="90 10 0 10" FontSize="20">
+                                                            <ContentPresenter />
+                                                </TextBlock>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style.Setters>
+                            </Style>
+                        </Style.Resources>
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="#FF4B4A4A"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>-->
+                </ListView.Resources>
+                
+                <!--<ListView.ItemTemplate>
                     <DataTemplate>
-                        <Button Background="Transparent" BorderThickness="0" Margin="0 10 0 0" >
-                            <TextBlock Text="{Binding Path=Name}" Width="87" Height="24" Margin="90 0 0 0" FontSize="20"/>
-                        </Button>
+                        <TextBlock Text="{Binding Path=Name}" Height="24" Margin="90 10 0 10" FontSize="20"/>
                     </DataTemplate>
-                </ListView.ItemTemplate>
+                </ListView.ItemTemplate>-->
             </ListView>
             
         </StackPanel>

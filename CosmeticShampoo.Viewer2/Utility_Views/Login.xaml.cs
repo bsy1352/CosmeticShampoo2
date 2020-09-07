@@ -19,10 +19,13 @@ namespace CosmeticShampoo.Viewer2.Utility_Views
     /// </summary>
     public partial class Login : Window
     {
-        public Login()
+        public MainWindow Parent { get; set; }
+        public Login(MainWindow parent = null)
         {
+            Parent = parent;
             InitializeComponent();
         }
+
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -66,6 +69,13 @@ namespace CosmeticShampoo.Viewer2.Utility_Views
             {
                 if(pw == password.Text)
                 {
+                    if(Parent != null)
+                    {
+
+                        this.Hide();
+                        Parent.ScreenLock.Visibility = Visibility.Collapsed;
+                        return;
+                    }
                     MainWindow main = new MainWindow();
                     main.Show();
                     this.Hide();
@@ -91,6 +101,16 @@ namespace CosmeticShampoo.Viewer2.Utility_Views
         private void password_GotFocus(object sender, RoutedEventArgs e)
         {
             password.Clear();
+        }
+
+        private void EnterBtn_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                this.comfirmbtn_Click(sender, e);
+            }
+
+
         }
     }
 }
