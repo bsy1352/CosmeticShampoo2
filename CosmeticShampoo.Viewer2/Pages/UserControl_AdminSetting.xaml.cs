@@ -1,5 +1,4 @@
-﻿using CosmeticShampoo.Viewer2.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,17 +16,13 @@ using System.Windows.Shapes;
 namespace CosmeticShampoo.Viewer2.Pages
 {
     /// <summary>
-    /// UserControl_Settings.xaml에 대한 상호 작용 논리
+    /// UserControl_AdminSetting.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class UserControl_Settings : UserControl
+    public partial class UserControl_AdminSetting : UserControl
     {
-        TextModel txtModel;
-        public UserControl_Settings(string text = null)
+        public UserControl_AdminSetting()
         {
-            txtModel = new TextModel(text);
-            this.DataContext = txtModel;
             InitializeComponent();
         }
-
     }
 }

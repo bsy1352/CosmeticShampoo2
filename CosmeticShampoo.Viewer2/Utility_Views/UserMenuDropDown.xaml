@@ -5,13 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:local="clr-namespace:CosmeticShampoo.Viewer2.Utility_Views"
-             mc:Ignorable="d" FontFamily="Nanumsquare" Initialized="UserControl_Initialized" Loaded="UserControl_Loaded">
-
-
+             mc:Ignorable="d" FontFamily="Nanumsquare">
 
     <Grid Margin="0 10 0 10">
         <StackPanel  Width="240"  >
-            <Button x:Name="btn" Background="Transparent" BorderThickness="0" Height="40" Margin="0 10 0 0" Click="Button_Click">
+            <Button x:Name="btn" Background="Transparent" BorderThickness="0" Height="40" Margin="0 10 0 0" Click="Button_Click" Loaded="UserControl_Loaded">
                 <Button.Resources>
                     <Style TargetType="Button">
                         <Setter Property="Template">
@@ -35,7 +33,7 @@
                     </Style>
                 </Button.Resources>
             </Button>
-            <ListView x:Name="dropdownPanel" Background="Transparent" BorderThickness="0" ItemsSource="{Binding Path=SubItems}" Visibility="Collapsed" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+            <ListView x:Name="dropdownPanel" Background="Transparent" BorderThickness="0" SelectionChanged="dropdownPanel_SelectionChanged" ItemsSource="{Binding Path=SubItems}" Visibility="Collapsed" ScrollViewer.VerticalScrollBarVisibility="Hidden">
                 <ListView.Resources>
                     <Style TargetType="{x:Type ListViewItem}">
                         <Style.Setters>

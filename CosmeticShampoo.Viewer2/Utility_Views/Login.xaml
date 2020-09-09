@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:CosmeticShampoo.Viewer2.Utility_Views"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
-        Title="Login" Height="450" Width="350" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None"  Background="Transparent">
+        Title="Login" Height="450" Width="350" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None"  Background="Transparent" ShowInTaskbar="False">
     <WindowChrome.WindowChrome>
         <WindowChrome 
         CaptionHeight="0"

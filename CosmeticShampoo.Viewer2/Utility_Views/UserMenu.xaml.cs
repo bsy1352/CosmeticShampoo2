@@ -22,10 +22,11 @@ namespace CosmeticShampoo.Viewer2.Utility_Views
     /// </summary>
     public partial class UserMenu : UserControl
     {
-        static bool isExpanded = false;
+      
         MainWindow _parent;
-
-        public UserMenu(ItemMenu itemMenu, MainWindow Parent)
+        public UserMenuDropDown userMenuDrop { get; set; }
+        public event EventHandler ButtonClickedEvent;
+        public UserMenu(ItemMenu itemMenu=null, MainWindow Parent=null)
         {
 
             InitializeComponent();
@@ -34,76 +35,13 @@ namespace CosmeticShampoo.Viewer2.Utility_Views
             this.DataContext = itemMenu;
 
         }
+        protected virtual void OnCloseButtonClicked(EventArgs e)
+        {
+            var handler = ButtonClickedEvent;
+            if (handler != null)
+                handler(this, e);
+        }
 
-        private static ListView listView { get; set; }
-
-
-        private static ListViewItem listItem { get; set; }
-
-    
-
-        //private void ExpanderMenu_LostFocus(object sender, RoutedEventArgs e)
-        //{
-        //    this.ExpanderMenu.IsExpanded = false;
-        //}
-
-        //private void PackIcon_MouseDown(object sender, MouseButtonEventArgs e)
-        //{
-        //    if (isExpanded == false)
-        //    {
-        //        isExpanded = true;
-        //        this.ExpanderMenu.IsExpanded = true;
-        //    }
-        //    else if (isExpanded == true)
-        //    {
-        //        isExpanded = false;
-        //        this.ExpanderMenu.IsExpanded = false;
-        //    }
-        //}
-
-
-
-        //private void ExpanderMenu_MouseEnter(object sender, MouseEventArgs e)
-        //{
-        //    ExpanderMenu.IsExpanded = true;
-        //}
-
-        //private void ExpanderMenu_MouseLeave(object sender, MouseEventArgs e)
-        //{
-        //    ExpanderMenu.IsExpanded = false;
-        //}
-
-
-
-        //private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    if (listView != null)
-        //    {
-        //        listView.SelectedItem = null;
-        //    }
-        //    listView = (ListView)sender;
-        //    try
-        //    {
-        //        try
-        //        {
-        //            _parent.SwitchScreens(((SubItem)(listView.SelectedItem)).Screen);
-
-        //        }
-        //        catch (InvalidCastException)
-        //        {
-        //            _parent.SwitchScreens(((ItemMenu)((ListViewItem)listView.SelectedItem).DataContext).Screen);
-        //        }
-
-        //    }
-        //    catch (NullReferenceException ex)
-        //    {
-        //        return;
-        //    }
-
-
-
-
-        //}
 
         private void ListViewMenu_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
@@ -113,27 +51,14 @@ namespace CosmeticShampoo.Viewer2.Utility_Views
 
         private void ShowViewButton_Clicked(object sender, RoutedEventArgs e)
         {
+            OnCloseButtonClicked(e);
             _parent.SwitchScreens(((ItemMenu)DataContext).Screen);
         }
 
+        
       
     }
 
-    public class personInListConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            string name = (string)value;
-            List<SubItem> items = (parameter as ObjectDataProvider).ObjectInstance as List<SubItem>;
-
-            return items.Exists(item => name.Equals(item.Name));
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-
-    }
+    
 }
 

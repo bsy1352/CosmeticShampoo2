@@ -5,12 +5,93 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CosmeticShampoo.Viewer2.Pages"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    
+             d:DesignHeight="450" d:DesignWidth="800" Loaded="Window_Loaded">
+
     <Grid >
         <Border CornerRadius="0 15 15 0">
 
         </Border>
-        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="대시보드 페이지"></TextBlock>
+        <Grid Margin="30" >
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Background="White" >
+                
+            </Grid>
+            <Grid Grid.Row="1" >
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="전체" Width="75">
+                        <Button.Resources>
+                            <Style TargetType="Button">
+                                <EventSetter Event="Click" Handler="Button_Click"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="1 0 1 1">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter Property="Background" Value="White"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                                
+                            </Style>
+                        </Button.Resources>
+                        
+
+                    </Button>
+                    <Button Content="용량" Width="75">
+                        <Button.Resources>
+                            <Style TargetType="Button">
+                                <EventSetter Event="Click" Handler="Button_Click"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="0 0 1 1">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter Property="Background" Value="White"/>
+                                    </Trigger>
+                                </Style.Triggers>
+
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                    <Button Content="제어" Width="75">
+                        <Button.Resources>
+                            <Style TargetType="Button">
+                                <EventSetter Event="Click" Handler="Button_Click"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="0 0 1 1">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter Property="Background" Value="White"/>
+                                    </Trigger>
+                                </Style.Triggers>
+
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
+
     </Grid>
 </UserControl>

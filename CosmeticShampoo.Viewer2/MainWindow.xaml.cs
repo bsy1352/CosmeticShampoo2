@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace CosmeticShampoo.Viewer2
 {
@@ -29,6 +30,10 @@ namespace CosmeticShampoo.Viewer2
 
         public MainWindow()
         {
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = new TimeSpan(0, 0, 1);
+            timer.Tick += Timer_Tick;
+            timer.Start();
             InitializeComponent();
         }
 
@@ -69,17 +74,16 @@ namespace CosmeticShampoo.Viewer2
             var item1 = new ItemMenu("대시보드", PackIconMaterialKind.MonitorDashboard, new UserControl_Dashboard());
 
             var menuProgramSetting = new List<SubItem>();
-            menuProgramSetting.Add(new SubItem("Customer"));
-            menuProgramSetting.Add(new SubItem("Provider"));
-            menuProgramSetting.Add(new SubItem("Employees"));
-            menuProgramSetting.Add(new SubItem("Products"));
+            menuProgramSetting.Add(new SubItem("관리자 설정", new UserControl_Settings("관리자 설정")));
+            menuProgramSetting.Add(new SubItem("컨트롤 설정", new UserControl_Settings("컨트롤 설정")));
 
             var item2 = new ItemMenu("프로그램 설정", menuProgramSetting, PackIconMaterialKind.Robot);
 
             Dashboard = new UserMenu(item1, this);
             ProgramSetting = new UserMenuDropDown(item2, this);
             
-
+            this.Dashboard.userMenuDrop = this.ProgramSetting;
+            this.ProgramSetting.userMenu = this.Dashboard;
 
             Menu.Children.Add(Dashboard);
             Menu.Children.Add(ProgramSetting);
@@ -100,6 +104,7 @@ namespace CosmeticShampoo.Viewer2
             {
                 ScreenLock.Visibility = Visibility.Visible;
                 Login login = new Login(this);
+                PopUpMenu.Visibility = Visibility.Collapsed;
                 login.ShowDialog();
             }
         }
@@ -107,6 +112,12 @@ namespace CosmeticShampoo.Viewer2
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             PopUpMenu.Visibility = Visibility.Collapsed;
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            Time_Date.Text = DateTime.Now.ToString("yyyy-MM-dd");
+            Time_Hour.Text = DateTime.Now.ToString("HH : mm : ss");
         }
     }
 

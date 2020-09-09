@@ -31,11 +31,17 @@ namespace CosmeticShampoo.Viewer2.Utility_Views
         RotateTransform rotation = new RotateTransform();
         private bool isCollapsed = true;
 
-        public UserMenuDropDown(ItemMenu itemMenu, MainWindow parent)
+        Image Arrow;
+
+        public UserMenu userMenu { get; set; }
+        private ListView listview { get; set; }
+
+        public UserMenuDropDown(ItemMenu itemMenu=null, MainWindow parent=null)
         {
             this.DataContext = itemMenu;
             _parent = parent;
-
+            
+            
 
             InitializeComponent();
             
@@ -70,42 +76,41 @@ namespace CosmeticShampoo.Viewer2.Utility_Views
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine(dropdownPanel.ActualHeight);
-        }
+            Button btn = sender as Button;
+            Arrow = btn.Template.FindName("Arrow", btn) as Image;
 
-        private void UserControl_Initialized(object sender, EventArgs e)
-        {
-            
             myDoubleAnimation.From = 0;
             myDoubleAnimation.To = 200;
             myDoubleAnimation.Duration = new Duration(TimeSpan.FromSeconds(0.8));
 
-            Image Arrow = btn.Template.FindName("Arrow", this) as Image;
+
 
             Arrow.RenderTransform = rotation;
             Arrow.RenderTransformOrigin = new Point(0.5, 0.5);
+
+            userMenu.ButtonClickedEvent += turnOff_Menu;
         }
 
-        private void ShowViewButton_Clicked(object sender, RoutedEventArgs e)
+        private void turnOff_Menu(object sender, EventArgs e)
         {
-            _parent.SwitchScreens(((ItemMenu)DataContext).Screen);
+            if(listview != null && listview.SelectedItem != null)
+            {
+                listview.UnselectAll();
+            }
+        }
+
+       
+
+        private void dropdownPanel_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            listview = (ListView)sender;
+            if(listview.SelectedItem != null)
+            {
+                _parent.SwitchScreens(((SubItem)(listview.SelectedItem)).Screen);
+            }
+            
         }
     }
 
-    public class BoolToVisibilityConverter : IValueConverter
-    {
-        #region IValueConverter Members
-
-        public object Convert(object value, System.Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            return (bool)value ? Visibility.Visible : Visibility.Collapsed;
-        }
-
-        public object ConvertBack(object value, System.Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            return false; // not needed
-        }
-
-        #endregion
-    }
+    
 }

@@ -64,6 +64,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Pages\UserControl_AdminSetting.xaml.cs">
+      <DependentUpon>UserControl_AdminSetting.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\UserControl_Dashboard.xaml.cs">
       <DependentUpon>UserControl_Dashboard.xaml</DependentUpon>
     </Compile>
@@ -86,6 +89,7 @@
     <Compile Include="ViewModels\ItemMenu.cs" />
     <Compile Include="ViewModels\Settings.cs" />
     <Compile Include="ViewModels\SubItem.cs" />
+    <Compile Include="ViewModels\TextModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -98,6 +102,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\UserControl_AdminSetting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\UserControl_Dashboard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
