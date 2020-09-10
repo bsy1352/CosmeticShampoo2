@@ -74,6 +74,7 @@ namespace CosmeticShampoo.Viewer2.Utility_Views
 
                         this.Hide();
                         Parent.ScreenLock.Visibility = Visibility.Collapsed;
+                        Parent.Opacity = 1;
                         return;
                     }
                     MainWindow main = new MainWindow();

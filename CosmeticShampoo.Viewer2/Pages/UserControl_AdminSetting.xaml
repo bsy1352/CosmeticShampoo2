@@ -5,14 +5,113 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CosmeticShampoo.Viewer2.Pages"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" >
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="40"/>
             <RowDefinition/>
+            <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
+        <Border CornerRadius="15" Grid.RowSpan="3" >
+
+        </Border>
         <Grid Grid.Row="0">
-            
+            <Border CornerRadius="3" Background="LightGray" Margin="3">
+                <StackPanel Orientation="Horizontal" >
+                    <TextBlock Text="관리자 보기" Margin="10,6,0,6" TextAlignment="Center" VerticalAlignment="Center" FontSize="30" FontFamily="배달의민족 도현" Height="33"></TextBlock>
+                </StackPanel>
+            </Border>
+
+        </Grid>
+        <Grid Grid.Row="1">
+            <Border CornerRadius="3" Background="LightGray" Margin="3">
+
+            </Border>
+
+            <StackPanel Orientation="Horizontal">
+                <Border CornerRadius="3" Width="234" Margin="10,7,0,7">
+                    <Border.Background>
+                        <ImageBrush Stretch="Fill" ImageSource="/CosmeticShampoo.Viewer2;component/Images/Icons/searchbar.png"/>
+                    </Border.Background>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Text="검색" Background="Transparent" Padding="2 0 0 0" FontSize="9" Width="113" HorizontalAlignment="Left" VerticalContentAlignment="Center" BorderThickness="0" Margin="0 0 0 0"/>
+                        <Button>
+                            <Button.Resources>
+                                <Style TargetType="Button">
+                                    <Setter Property="Width" Value="20"/>
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="Transparent"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+
+                    </StackPanel>
+
+                </Border>
+
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <Button >
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Width" Value="20"/>
+                            <Setter Property="Background" Value="Red"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Resources>
+
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="-" Padding="0 0 0 2"/>
+                </Button>
+                <Button>
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Width" Value="20"/>
+                            <Setter Property="Background" Value="Green"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Margin" Value="5 0 10 0"/>
+
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="Transparent"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Resources>
+
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="+" Padding="0 0 0 2"/>
+                </Button>
+            </StackPanel>
+
+
+        </Grid>
+        <Grid Grid.Row="2">
+            <Border CornerRadius="3" Background="LightGray" Margin="3">
+                <DataGrid >
+                    
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="등록번호" Width="*"/>
+                        <DataGridTextColumn Header="이름" Width="*"/>
+                        <DataGridTextColumn Header="ID" Width="*"/>
+                        <DataGridTextColumn Header="비밀번호" Width="*"/>
+                        <DataGridTextColumn Header="등록일" Width="*"/>
+                        <DataGridTextColumn Header="수정일" Width="*"/>
+                        <DataGridTextColumn Header="권한" Width="*"/>
+                        
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
         </Grid>
     </Grid>
 </UserControl>

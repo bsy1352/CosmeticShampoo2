@@ -28,6 +28,9 @@ namespace CosmeticShampoo.Viewer2
         UserMenu Dashboard;
         UserMenuDropDown ProgramSetting;
 
+        UserMenuDropDown Statistics;
+
+
         public MainWindow()
         {
             DispatcherTimer timer = new DispatcherTimer();
@@ -61,6 +64,7 @@ namespace CosmeticShampoo.Viewer2
             }
         }
 
+        
         private void Window_Initialized(object sender, EventArgs e)
         {
             
@@ -74,19 +78,30 @@ namespace CosmeticShampoo.Viewer2
             var item1 = new ItemMenu("대시보드", PackIconMaterialKind.MonitorDashboard, new UserControl_Dashboard());
 
             var menuProgramSetting = new List<SubItem>();
-            menuProgramSetting.Add(new SubItem("관리자 설정", new UserControl_Settings("관리자 설정")));
+            menuProgramSetting.Add(new SubItem("관리자 설정", new UserControl_AdminSetting()));
             menuProgramSetting.Add(new SubItem("컨트롤 설정", new UserControl_Settings("컨트롤 설정")));
 
             var item2 = new ItemMenu("프로그램 설정", menuProgramSetting, PackIconMaterialKind.Robot);
 
+            var Statistics = new List<SubItem>();
+            Statistics.Add(new SubItem("오류", new UserControl_Settings("오류 목록")));
+
+            var item3 = new ItemMenu("통계", Statistics, PackIconMaterialKind.ChartBar);
+
             Dashboard = new UserMenu(item1, this);
             ProgramSetting = new UserMenuDropDown(item2, this);
+            this.Statistics = new UserMenuDropDown(item3, this);
             
             this.Dashboard.userMenuDrop = this.ProgramSetting;
             this.ProgramSetting.userMenu = this.Dashboard;
+            this.Statistics.userMenu = this.Dashboard;
+            this.ProgramSetting.userMenuDrop = this.Statistics;
+            this.Statistics.userMenuDrop = this.ProgramSetting;
 
             Menu.Children.Add(Dashboard);
             Menu.Children.Add(ProgramSetting);
+            Menu.Children.Add(this.Statistics);
+
             DataContext = this;
 
         }
@@ -105,6 +120,7 @@ namespace CosmeticShampoo.Viewer2
                 ScreenLock.Visibility = Visibility.Visible;
                 Login login = new Login(this);
                 PopUpMenu.Visibility = Visibility.Collapsed;
+                this.Opacity = 0.6;
                 login.ShowDialog();
             }
         }
@@ -118,6 +134,11 @@ namespace CosmeticShampoo.Viewer2
         {
             Time_Date.Text = DateTime.Now.ToString("yyyy-MM-dd");
             Time_Hour.Text = DateTime.Now.ToString("HH : mm : ss");
+        }
+
+        private void ScrollViewer_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("hello");
         }
     }
 

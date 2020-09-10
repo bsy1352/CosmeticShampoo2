@@ -8,7 +8,7 @@
         xmlns:viewmodels="clr-namespace:CosmeticShampoo.Viewer2.ViewModels"
         xmlns:views="clr-namespace:CosmeticShampoo.Viewer2.Pages" 
         mc:Ignorable="d"
-        Title="MainWindow" Height="1080" Width="1920" WindowStartupLocation="CenterScreen" WindowStyle="None" Initialized="Window_Initialized" WindowState="Maximized">
+        Title="MainWindow" Height="1080" Width="1920" WindowStartupLocation="CenterScreen" WindowStyle="None" Initialized="Window_Initialized" MouseDown="Window_MouseDown" WindowState="Maximized">
 
     <Grid>
         <Grid>
@@ -64,10 +64,11 @@
                 </Grid>
                 <Grid  Grid.RowSpan="2" Grid.Column="1" Panel.ZIndex="1">
                     <Border CornerRadius="0,15,15,0"  Background="#FFFFE7F1">
-                        <Grid x:Name="MainView">
-
-                        </Grid>
+                        
                     </Border>
+                    <Grid x:Name="MainView" Margin="50 65 50 80">
+
+                    </Grid>
                 </Grid>
 
                 <Grid Grid.Column="0" Grid.RowSpan="2">
@@ -84,8 +85,8 @@
 
                     </Grid>
 
-                    <Grid Grid.Row="1" Background="Transparent">
-                        <ScrollViewer HorizontalAlignment="Stretch" Width="250" HorizontalScrollBarVisibility="Disabled"  VerticalScrollBarVisibility="Auto" Height="592" >
+                    <Grid Grid.Row="1" >
+                        <ScrollViewer HorizontalAlignment="Stretch" Focusable="False" Background="Transparent" Width="250" HorizontalScrollBarVisibility="Disabled"  VerticalScrollBarVisibility="Auto" Height="592">
                             <StackPanel x:Name="Menu" Margin="10"/>
                         </ScrollViewer>
                     </Grid>

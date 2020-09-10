@@ -34,6 +34,7 @@ namespace CosmeticShampoo.Viewer2.Utility_Views
         Image Arrow;
 
         public UserMenu userMenu { get; set; }
+        public UserMenuDropDown userMenuDrop { get; set; }
         private ListView listview { get; set; }
 
         public UserMenuDropDown(ItemMenu itemMenu=null, MainWindow parent=null)
@@ -41,12 +42,7 @@ namespace CosmeticShampoo.Viewer2.Utility_Views
             this.DataContext = itemMenu;
             _parent = parent;
             
-            
-
             InitializeComponent();
-            
-            
-
         }
 
 
@@ -78,10 +74,10 @@ namespace CosmeticShampoo.Viewer2.Utility_Views
         {
             Button btn = sender as Button;
             Arrow = btn.Template.FindName("Arrow", btn) as Image;
-
+            
             myDoubleAnimation.From = 0;
-            myDoubleAnimation.To = 200;
-            myDoubleAnimation.Duration = new Duration(TimeSpan.FromSeconds(0.8));
+            myDoubleAnimation.To = getListviewLenght();
+            myDoubleAnimation.Duration = new Duration(TimeSpan.FromSeconds(0.5));
 
 
 
@@ -89,6 +85,7 @@ namespace CosmeticShampoo.Viewer2.Utility_Views
             Arrow.RenderTransformOrigin = new Point(0.5, 0.5);
 
             userMenu.ButtonClickedEvent += turnOff_Menu;
+            userMenuDrop.ButtonClickedEvent += turnOff_Menu;
         }
 
         private void turnOff_Menu(object sender, EventArgs e)
@@ -107,8 +104,25 @@ namespace CosmeticShampoo.Viewer2.Utility_Views
             if(listview.SelectedItem != null)
             {
                 _parent.SwitchScreens(((SubItem)(listview.SelectedItem)).Screen);
+                OnCloseButtonClicked(e);
             }
             
+        }
+
+        private int getListviewLenght()
+        {
+
+            int length = dropdownPanel.Items.Count * (48);
+
+            return length;
+        }
+
+        public event EventHandler ButtonClickedEvent;
+        protected virtual void OnCloseButtonClicked(EventArgs e)
+        {
+            var handler = ButtonClickedEvent;
+            if (handler != null)
+                handler(this, e);
         }
     }
 
