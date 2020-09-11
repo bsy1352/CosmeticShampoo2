@@ -10,29 +10,28 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace CosmeticShampoo.Viewer2.Pages
 {
     /// <summary>
-    /// UserControl_AdminSetting.xaml에 대한 상호 작용 논리
+    /// AddUserView.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class UserControl_AdminSetting : UserControl
+    public partial class AddUserView : Window
     {
-        public MainWindow _Parent { get; set; }
-        public UserControl_AdminSetting(MainWindow parent)
+        UserControl_AdminSetting parent;
+        public AddUserView(UserControl_AdminSetting Parent)
         {
-            _Parent = parent;
+            parent = Parent;
+
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
-            AddUserView addUser = new AddUserView(this);
-
-            _Parent.Opacity = 0.6;
-            addUser.ShowDialog();
+            MainWindow main = parent._Parent;
+            main.Opacity = 1;
+            this.Close();
 
         }
     }

@@ -11,7 +11,7 @@
         <Border CornerRadius="0 15 15 0">
 
         </Border>
-        <Grid Margin="30" >
+        <Grid Margin="30 40 30 30" >
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition Height="30"/>

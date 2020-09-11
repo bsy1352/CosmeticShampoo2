@@ -78,13 +78,13 @@ namespace CosmeticShampoo.Viewer2
             var item1 = new ItemMenu("대시보드", PackIconMaterialKind.MonitorDashboard, new UserControl_Dashboard());
 
             var menuProgramSetting = new List<SubItem>();
-            menuProgramSetting.Add(new SubItem("관리자 설정", new UserControl_AdminSetting()));
+            menuProgramSetting.Add(new SubItem("관리자 설정", new UserControl_AdminSetting(this)));
             menuProgramSetting.Add(new SubItem("컨트롤 설정", new UserControl_Settings("컨트롤 설정")));
 
             var item2 = new ItemMenu("프로그램 설정", menuProgramSetting, PackIconMaterialKind.Robot);
 
             var Statistics = new List<SubItem>();
-            Statistics.Add(new SubItem("오류", new UserControl_Settings("오류 목록")));
+            Statistics.Add(new SubItem("오류", new UserControl_Errors()));
 
             var item3 = new ItemMenu("통계", Statistics, PackIconMaterialKind.ChartBar);
 
