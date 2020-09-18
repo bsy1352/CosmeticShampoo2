@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CosmeticShampoo.Viewer2.Pages"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Background="Transparent">
+             d:DesignHeight="450" d:DesignWidth="800" Background="Transparent" Loaded="UserControl_Loaded">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="57*"/>
@@ -15,8 +15,18 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid x:Name="OrderListView" Grid.Row="1" Grid.Column="1">
+        
+        <Grid x:Name="ProgressView" Grid.Row="0" Grid.Column="1" Margin="5">
+
+        </Grid>
+        
+        <Grid x:Name="StatisticView" Grid.Row="1" Grid.Column="0" Margin="5">
+
+        </Grid>
+
+        <Grid x:Name="OrderListView" Grid.Row="1" Grid.Column="1" Margin="5">
             
         </Grid>
+        
     </Grid>
 </UserControl>

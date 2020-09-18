@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CosmeticShampoo.Viewer2.Pages
+namespace CosmeticShampoo.Viewer2.Pages.Dashboard
 {
     /// <summary>
-    /// UserControl_Dashboard_Total.xaml에 대한 상호 작용 논리
+    /// UserControl_Dashboard_Progress_Row2.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class UserControl_Dashboard_Total : UserControl
+    public partial class UserControl_Dashboard_Progress_Row2 : UserControl
     {
-        public UserControl_Dashboard_Total()
+        public UserControl_Dashboard_Progress_Row2()
         {
             InitializeComponent();
         }

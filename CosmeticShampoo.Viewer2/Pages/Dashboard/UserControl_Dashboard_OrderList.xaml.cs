@@ -20,8 +20,10 @@ namespace CosmeticShampoo.Viewer2.Pages
     /// </summary>
     public partial class UserControl_Dashboard_OrderList : UserControl
     {
-        public UserControl_Dashboard_OrderList()
+        UserControl_Dashboard_Total total;
+        public UserControl_Dashboard_OrderList(UserControl_Dashboard_Total Total)
         {
+            total = Total;
             InitializeComponent();
         }
     }

@@ -16,12 +16,12 @@
                 <RowDefinition />
                 <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0" Background="White" >
+            <Grid x:Name="DashboardView" Grid.Row="0" Background="Transparent" >
                 
             </Grid>
             <Grid Grid.Row="1" >
                 <StackPanel Orientation="Horizontal">
-                    <Button Content="전체" Width="75">
+                    <Button Content="전체" Width="75" Click="TotalView_Click">
                         <Button.Resources>
                             <Style TargetType="Button">
                                 <EventSetter Event="Click" Handler="Button_Click"/>
@@ -45,7 +45,7 @@
                         
 
                     </Button>
-                    <Button Content="용량" Width="75">
+                    <Button Content="용량" Width="75" Click="SolutionsView_Click" >
                         <Button.Resources>
                             <Style TargetType="Button">
                                 <EventSetter Event="Click" Handler="Button_Click"/>
@@ -67,7 +67,7 @@
                             </Style>
                         </Button.Resources>
                     </Button>
-                    <Button Content="제어" Width="75">
+                    <Button Content="제어" Width="75" Click="ControlView_Click"  >
                         <Button.Resources>
                             <Style TargetType="Button">
                                 <EventSetter Event="Click" Handler="Button_Click"/>

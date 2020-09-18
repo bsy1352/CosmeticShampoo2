@@ -38,14 +38,30 @@
     <ApplicationIcon>shampoo.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ControlzEx, Version=4.0.0.0, Culture=neutral, PublicKeyToken=69f1c32f803d307e, processorArchitecture=MSIL">
+      <HintPath>..\packages\ControlzEx.4.3.2\lib\net462\ControlzEx.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="MahApps.Metro.IconPacks.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0c0d510f9915137a, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.IconPacks.Material.4.4.0\lib\net47\MahApps.Metro.IconPacks.Core.dll</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro.IconPacks.Material, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0c0d510f9915137a, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.IconPacks.Material.4.4.0\lib\net47\MahApps.Metro.IconPacks.Material.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.19\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -64,22 +80,34 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Pages\AddUserView.xaml.cs">
+    <Compile Include="Pages\Dashboard\UserControl_Dashboard_Progress.xaml.cs">
+      <DependentUpon>UserControl_Dashboard_Progress.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Dashboard\UserControl_Dashboard_Progress_Row1.xaml.cs">
+      <DependentUpon>UserControl_Dashboard_Progress_Row1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Dashboard\UserControl_Dashboard_Progress_Row2.xaml.cs">
+      <DependentUpon>UserControl_Dashboard_Progress_Row2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Dashboard\UserControl_Dashboard_Statistics.xaml.cs">
+      <DependentUpon>UserControl_Dashboard_Statistics.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Settings\AddUserView.xaml.cs">
       <DependentUpon>AddUserView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\UserControl_AdminSetting.xaml.cs">
+    <Compile Include="Pages\Settings\UserControl_AdminSetting.xaml.cs">
       <DependentUpon>UserControl_AdminSetting.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\UserControl_Dashboard.xaml.cs">
+    <Compile Include="Pages\Dashboard\UserControl_Dashboard.xaml.cs">
       <DependentUpon>UserControl_Dashboard.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\UserControl_Dashboard_OrderList.xaml.cs">
+    <Compile Include="Pages\Dashboard\UserControl_Dashboard_OrderList.xaml.cs">
       <DependentUpon>UserControl_Dashboard_OrderList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\UserControl_Dashboard_Total.xaml.cs">
+    <Compile Include="Pages\Dashboard\UserControl_Dashboard_Total.xaml.cs">
       <DependentUpon>UserControl_Dashboard_Total.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\UserControl_Errors.xaml.cs">
+    <Compile Include="Pages\Statistics\UserControl_Errors.xaml.cs">
       <DependentUpon>UserControl_Errors.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\UserControl_Settings.xaml.cs">
@@ -114,27 +142,43 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Pages\AddUserView.xaml">
+    <Page Include="Pages\Dashboard\UserControl_Dashboard_Progress.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\UserControl_AdminSetting.xaml">
+    <Page Include="Pages\Dashboard\UserControl_Dashboard_Progress_Row1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\UserControl_Dashboard.xaml">
+    <Page Include="Pages\Dashboard\UserControl_Dashboard_Progress_Row2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\UserControl_Dashboard_OrderList.xaml">
+    <Page Include="Pages\Dashboard\UserControl_Dashboard_Statistics.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\UserControl_Dashboard_Total.xaml">
+    <Page Include="Pages\Settings\AddUserView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\UserControl_Errors.xaml">
+    <Page Include="Pages\Settings\UserControl_AdminSetting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Dashboard\UserControl_Dashboard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Dashboard\UserControl_Dashboard_OrderList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Dashboard\UserControl_Dashboard_Total.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Statistics\UserControl_Errors.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -220,6 +264,18 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Icons\searchbar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\red-alarm.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\PLC.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\Server.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icons\Pad.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -21,6 +22,9 @@ namespace CosmeticShampoo.Viewer2.Pages
     public partial class UserControl_Dashboard : UserControl
     {
         List<Button> btnlist = new List<Button>();
+
+        UserControl_Dashboard_Total total;
+        
         public UserControl_Dashboard()
         {
             InitializeComponent();
@@ -45,6 +49,9 @@ namespace CosmeticShampoo.Viewer2.Pages
             {
                 btnlist.Add(btn);
             }
+
+            total = new UserControl_Dashboard_Total(this);
+
         }
 
         public static IEnumerable<T> FindVisualChildren<T>(DependencyObject depObj) where T : DependencyObject
@@ -66,5 +73,35 @@ namespace CosmeticShampoo.Viewer2.Pages
                 }
             }
         }
+
+        private void SwitchScreens(object sender)
+        {
+            var screen = (UserControl)sender;
+
+
+            if (screen != null)
+            {
+                DashboardView.Children.Clear();
+                DashboardView.Children.Add(screen);
+                return;
+            }
+        }
+
+        private void TotalView_Click(object sender, RoutedEventArgs e)
+        {
+            SwitchScreens(total);
+        }
+
+        private void SolutionsView_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ControlView_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        
     }
 }

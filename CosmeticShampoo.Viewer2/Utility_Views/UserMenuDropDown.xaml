@@ -18,7 +18,6 @@
                                     <StackPanel Orientation="Horizontal" Width="217"  >
                                         <iconPacks:PackIconMaterial Kind="{Binding Path=Icon}" Opacity="0.5" VerticalAlignment="Center" Margin="15 0 0 0" Foreground="Black" Height="23" Width="23" />
                                         <TextBlock x:Name="txtValue" Text="{Binding Header}" Width="115" Height="24" FontFamily="NanumSquare ExtraBold" Margin="35 0 0 0" FontSize="19"/>
-
                                         <Image x:Name="Arrow" Source="/Images/Icons/Arrow.png" Width="20" Height="24" Margin="5 0 0 0"/>
                                     </StackPanel>
                                 </ControlTemplate>
