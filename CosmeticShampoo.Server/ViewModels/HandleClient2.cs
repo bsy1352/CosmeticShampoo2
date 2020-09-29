@@ -7,11 +7,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-
-// PC 서버
 namespace CosmeticShampoo.Server.ViewModels
 {
-    public class HandleClient
+    class HandleClient2
     {
         TcpClient clientSocket = null;
         public Dictionary<TcpClient, string> clientList = null;
@@ -50,11 +48,9 @@ namespace CosmeticShampoo.Server.ViewModels
                     msg = Encoding.Unicode.GetString(buffer, 0, bytes);
                     msg = msg.Substring(0, msg.IndexOf("$"));
 
-                    
+
                     if (OnReceived != null)
                         OnReceived(msg, clientList[clientSocket].ToString());
-
-                    
                 }
             }
             catch (SocketException se)

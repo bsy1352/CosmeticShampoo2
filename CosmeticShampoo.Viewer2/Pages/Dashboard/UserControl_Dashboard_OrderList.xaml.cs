@@ -25,6 +25,14 @@ namespace CosmeticShampoo.Viewer2.Pages
         {
             total = Total;
             InitializeComponent();
+            ShowTable();
         }
+
+        private void ShowTable()
+        {
+            
+        }
+
+
     }
 }

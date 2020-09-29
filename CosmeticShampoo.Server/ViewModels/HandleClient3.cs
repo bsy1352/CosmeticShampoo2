@@ -1,4 +1,7 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -7,14 +10,14 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-
-// PC 서버
 namespace CosmeticShampoo.Server.ViewModels
 {
-    public class HandleClient
+    class HandleClient3
     {
         TcpClient clientSocket = null;
         public Dictionary<TcpClient, string> clientList = null;
+
+        private JArray jArray { get; set; }
 
         public void startClient(TcpClient clientSocket, Dictionary<TcpClient, string> clientList)
         {
@@ -28,6 +31,9 @@ namespace CosmeticShampoo.Server.ViewModels
 
         public delegate void MessageDisplayHandler(string message, string user_name);
         public event MessageDisplayHandler OnReceived;
+
+        public delegate void DataSendHandler(JArray jObject);
+        public event DataSendHandler SendData;
 
         public delegate void DisconnectedHandler(TcpClient clientSocket);
         public event DisconnectedHandler OnDisconnected;
@@ -50,11 +56,25 @@ namespace CosmeticShampoo.Server.ViewModels
                     msg = Encoding.Unicode.GetString(buffer, 0, bytes);
                     msg = msg.Substring(0, msg.IndexOf("$"));
 
-                    
+                    switch (msg)
+                    {
+                        case "ShowOrders":
+                            Thread newTread = new Thread(getOrderList);
+                            newTread.IsBackground = true;
+                            newTread.Start();
+                            newTread.Join();
+
+                            SendData(jArray);
+                            break;
+
+                        default:
+                            break;
+
+                    }
+
+
                     if (OnReceived != null)
                         OnReceived(msg, clientList[clientSocket].ToString());
-
-                    
                 }
             }
             catch (SocketException se)
@@ -83,6 +103,42 @@ namespace CosmeticShampoo.Server.ViewModels
                     stream.Close();
                 }
             }
+        }
+
+        private void getOrderList()
+        {
+            Orders orders = new Orders();
+            string strconn = "Server=127.0.0.1;Database=granco;Uid=root;Pwd=0000;";
+            MySqlConnection conn = new MySqlConnection(strconn);
+            MySqlCommand cmd;
+            MySqlDataReader reader;
+
+            conn.Open();
+            Thread.Sleep(1000);
+            string select = "Select * from process";
+            //string select = "Select Ethanol, Aloe_gel, Scent_Oil from recipe where R_Name = 'Orange'";
+            cmd = new MySqlCommand(select, conn);
+            reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                orders.OrderNum = reader.IsDBNull(0) ? 0 : reader.GetInt16(0);
+                orders.OrderDate = reader.IsDBNull(1) ? "null" : reader.GetString(1);
+                orders.OrderDetail = reader.IsDBNull(2) ? "null" : reader.GetString(2);
+                orders.OrderState = reader.IsDBNull(3) ? "null" : reader.GetString(3);
+
+                var jsonString = JsonConvert.SerializeObject(orders);
+                jArray.Add(jsonString);
+            }
+
+
+            reader.Close();
+
+            conn.Close();
+
+
+
+
         }
 
 
