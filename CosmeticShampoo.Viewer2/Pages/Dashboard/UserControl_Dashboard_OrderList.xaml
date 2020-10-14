@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CosmeticShampoo.Viewer2.Pages"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded">
     <Grid Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -17,7 +17,7 @@
             </StackPanel>
         </Border>
         <Border Grid.Row="1" Background="White" BorderBrush="DarkGray" BorderThickness="2 0 2 2">
-            <DataGrid>
+            <DataGrid x:Name="OrderGrid">
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="DataGridColumnHeader">
                         <Setter Property="Height" Value="35"/>
