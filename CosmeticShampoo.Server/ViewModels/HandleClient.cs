@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -15,6 +17,7 @@ namespace CosmeticShampoo.Server.ViewModels
     {
         TcpClient clientSocket = null;
         public Dictionary<TcpClient, string> clientList = null;
+        
 
         public void startClient(TcpClient clientSocket, Dictionary<TcpClient, string> clientList)
         {
@@ -31,6 +34,9 @@ namespace CosmeticShampoo.Server.ViewModels
 
         public delegate void DisconnectedHandler(TcpClient clientSocket);
         public event DisconnectedHandler OnDisconnected;
+
+        public delegate void SendJsonHandler(JArray jArray);
+        public event SendJsonHandler OnSent;
 
         private void doChat()
         {
@@ -50,6 +56,16 @@ namespace CosmeticShampoo.Server.ViewModels
                     msg = Encoding.Unicode.GetString(buffer, 0, bytes);
                     msg = msg.Substring(0, msg.IndexOf("$"));
 
+                    switch (msg)
+                    {
+                        case "ShowOrders":
+                            Thread newThread = new Thread(ShowOrders);
+                            newThread.Start();
+                            break;
+
+                        default:
+                            break;
+                    }
                     
                     if (OnReceived != null)
                         OnReceived(msg, clientList[clientSocket].ToString());
@@ -83,6 +99,40 @@ namespace CosmeticShampoo.Server.ViewModels
                     stream.Close();
                 }
             }
+        }
+
+        private void ShowOrders()
+        {
+            JArray jArray = new JArray();
+            Orders orders = new Orders();
+            string strconn = "Server=127.0.0.1;Database=granco;Uid=admin;Pwd=1qhdtldbs!;";
+            MySqlConnection conn = new MySqlConnection(strconn);
+            MySqlCommand cmd;
+            MySqlDataReader reader;
+
+            conn.Open();
+            string select = "Select * from orders";
+            //string select = "Select Ethanol, Aloe_gel, Scent_Oil from recipe where R_Name = 'Orange'";
+            cmd = new MySqlCommand(select, conn);
+            reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                orders.OrderNum = reader.IsDBNull(0) ? 0 : reader.GetInt32(0);
+                orders.OrderDate = reader.IsDBNull(2) ? "null" : reader.GetString(2);
+                orders.OrderDetail = reader.IsDBNull(1) ? "null" : reader.GetString(1);
+                orders.OrderState = reader.IsDBNull(3) ? "null" : reader.GetString(3);
+
+                var jsonString = JObject.FromObject(orders);
+                jArray.Add(jsonString);
+            }
+
+
+            reader.Close();
+
+            conn.Close();
+
+            OnSent(jArray);
         }
 
 

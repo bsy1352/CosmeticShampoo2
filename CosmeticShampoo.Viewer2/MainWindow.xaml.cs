@@ -30,6 +30,7 @@ namespace CosmeticShampoo.Viewer2
 
         UserMenuDropDown Statistics;
 
+        UserControl_Settings settings = new UserControl_Settings();
 
         public MainWindow()
         {
@@ -139,6 +140,11 @@ namespace CosmeticShampoo.Viewer2
         private void ScrollViewer_MouseDown(object sender, MouseButtonEventArgs e)
         {
             MessageBox.Show("hello");
+        }
+
+        private void Settings_Click(object sender, RoutedEventArgs e)
+        {
+            SwitchScreens(settings);
         }
     }
 

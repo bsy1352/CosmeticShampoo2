@@ -23,13 +23,11 @@ namespace CosmeticShampoo.Viewer2.Pages
     {
         List<Button> btnlist = new List<Button>();
 
-        UserControl_Dashboard_Total total;
+        UserControl_Dashboard_Total total = null;
         
         public UserControl_Dashboard()
         {
             InitializeComponent();
-
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -50,7 +48,13 @@ namespace CosmeticShampoo.Viewer2.Pages
                 btnlist.Add(btn);
             }
 
-            total = new UserControl_Dashboard_Total(this);
+           if(total == null)
+            {
+                total = new UserControl_Dashboard_Total(this);
+            }
+            
+            
+            
 
         }
 

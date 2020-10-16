@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CosmeticShampoo.Viewer2.Pages"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded">
+             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded" >
     <Grid Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -17,7 +17,7 @@
             </StackPanel>
         </Border>
         <Border Grid.Row="1" Background="White" BorderBrush="DarkGray" BorderThickness="2 0 2 2">
-            <DataGrid x:Name="OrderGrid">
+            <DataGrid x:Name="OrderGrid" AutoGenerateColumns="False">
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="DataGridColumnHeader">
                         <Setter Property="Height" Value="35"/>
@@ -27,10 +27,10 @@
                 </DataGrid.ColumnHeaderStyle>
           
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="주문번호" Width="150"/>
-                    <DataGridTextColumn Header="주문일시" Width="150"/>
-                    <DataGridTextColumn Header="상세내용" Width="*"/>
-                    <DataGridTextColumn Header="상태" Width="100"/>
+                    <DataGridTextColumn Header="주문번호" Binding="{Binding OrderNum}" Width="150"/>
+                    <DataGridTextColumn Header="주문일시" Binding="{Binding OrderDate}" Width="150"/>
+                    <DataGridTextColumn Header="상세내용" Binding="{Binding OrderDetail}" Width="*"/>
+                    <DataGridTextColumn Header="상태" Binding="{Binding OrderState}" Width="100"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Border>

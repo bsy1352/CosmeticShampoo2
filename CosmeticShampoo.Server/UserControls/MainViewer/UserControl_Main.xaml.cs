@@ -70,14 +70,14 @@ namespace CosmeticShampoo.Server.UserControls.MainViewer
         {
             Thread t = new Thread(InitSocket);
             t.IsBackground = true;
-            Thread t2 = new Thread(InitSocket2);
-            t2.IsBackground = true;
-            Thread t3 = new Thread(InitSocket3);
-            t3.IsBackground = true;
+            //Thread t2 = new Thread(InitSocket2);
+            //t2.IsBackground = true;
+            //Thread t3 = new Thread(InitSocket3);
+            //t3.IsBackground = true;
 
             t.Start();
-            t2.Start();
-            t3.Start();
+            //t2.Start();
+            //t3.Start();
         }
         
 
@@ -142,12 +142,13 @@ namespace CosmeticShampoo.Server.UserControls.MainViewer
                     user_name = user_name.Substring(0, user_name.IndexOf("$")); // client 사용자 명
 
                     clientList.Add(clientSocket, user_name); // cleint 리스트에 추가
-
+                    log.logView += (user_name +" is accepted.\n");
                     SendMessageAll(user_name + " 님이 입장하셨습니다.", "", false); // 모든 client에게 메세지 전송
 
                     HandleClient h_client = new HandleClient(); // 클라이언트 추가
                     h_client.OnReceived += new HandleClient.MessageDisplayHandler(OnReceived);
                     h_client.OnDisconnected += new HandleClient.DisconnectedHandler(h_client_OnDisconnected);
+                    h_client.OnSent += new HandleClient.SendJsonHandler(OnSent);
                     h_client.startClient(clientSocket, clientList);
                 }
 
@@ -167,106 +168,122 @@ namespace CosmeticShampoo.Server.UserControls.MainViewer
 
         }
 
-        private void InitSocket2()
-        {
-            log.logView += "Server2 Start...\n";
-            server2 = new TcpListener(IPAddress.Any, 9992);
-            this.stopMachinery += server2.Stop;
-            clientSocket2 = default(TcpClient);
-            server2.Start();
-            log.logView += "Server2 opened successfully\n";
+        //private void InitSocket2()
+        //{
+        //    log.logView += "Server2 Start...\n";
+        //    server2 = new TcpListener(IPAddress.Any, 9992);
+        //    this.stopMachinery += server2.Stop;
+        //    clientSocket2 = default(TcpClient);
+        //    server2.Start();
+        //    log.logView += "Server2 opened successfully\n";
 
-            while (true)
-            {
-                try
-                {
-                    log.logView += "Server2 is waiting for clients...\n";
-                    clientSocket2 = server2.AcceptTcpClient(); // client 소켓 접속 허용
+        //    while (true)
+        //    {
+        //        try
+        //        {
+        //            log.logView += "Server2 is waiting for clients...\n";
+        //            clientSocket2 = server2.AcceptTcpClient(); // client 소켓 접속 허용
 
 
-                    NetworkStream stream = clientSocket2.GetStream();
+        //            NetworkStream stream = clientSocket2.GetStream();
 
-                    byte[] buffer = new byte[1024]; // 버퍼
-                    int bytes = stream.Read(buffer, 0, buffer.Length);
-                    string user_name = Encoding.Unicode.GetString(buffer, 0, bytes);
-                    user_name = user_name.Substring(0, user_name.IndexOf("$")); // client 사용자 명
+        //            byte[] buffer = new byte[1024]; // 버퍼
+        //            int bytes = stream.Read(buffer, 0, buffer.Length);
+        //            string user_name = Encoding.Unicode.GetString(buffer, 0, bytes);
+        //            user_name = user_name.Substring(0, user_name.IndexOf("$")); // client 사용자 명
 
-                    clientList.Add(clientSocket2, user_name); // cleint 리스트에 추가
+        //            clientList.Add(clientSocket2, user_name); // cleint 리스트에 추가
 
-                    SendMessageAll(user_name + " 님이 입장하셨습니다.", "", false); // 모든 client에게 메세지 전송
+        //            SendMessageAll(user_name + " 님이 입장하셨습니다.", "", false); // 모든 client에게 메세지 전송
 
-                    HandleClient2 h_client = new HandleClient2(); // 클라이언트 추가
-                    h_client.OnReceived += new HandleClient2.MessageDisplayHandler(OnReceived);
-                    h_client.OnDisconnected += new HandleClient2.DisconnectedHandler(h_client_OnDisconnected);
-                    h_client.startClient(clientSocket2, clientList);
-                }
+        //            HandleClient2 h_client = new HandleClient2(); // 클라이언트 추가
+        //            h_client.OnReceived += new HandleClient2.MessageDisplayHandler(OnReceived);
+        //            h_client.OnDisconnected += new HandleClient2.DisconnectedHandler(h_client_OnDisconnected);
+        //            h_client.startClient(clientSocket2, clientList);
+        //        }
 
-                catch (SocketException se) { break; }
+        //        catch (SocketException se) { break; }
 
-                catch (Exception ex) { break; }
+        //        catch (Exception ex) { break; }
 
-            }
+        //    }
 
-            if (clientSocket2 != null)
-            {
-                clientSocket2.Close(); // client 소켓 닫기
-            }
+        //    if (clientSocket2 != null)
+        //    {
+        //        clientSocket2.Close(); // client 소켓 닫기
+        //    }
             
-            log.logView += "Server2 closed\n";
+        //    log.logView += "Server2 closed\n";
 
-        }
+        //}
 
-        private void InitSocket3()
-        {
-            log.logView += "Server3 Start...\n";
-            server3 = new TcpListener(IPAddress.Any, 9993);
-            this.stopMachinery += server3.Stop;
-            clientSocket3 = default(TcpClient);
-            server3.Start();
-            log.logView += "Server3 opened successfully\n";
+        //private void InitSocket3()
+        //{
+        //    log.logView += "Server3 Start...\n";
+        //    server3 = new TcpListener(IPAddress.Any, 9993);
+        //    this.stopMachinery += server3.Stop;
+        //    clientSocket3 = default(TcpClient);
+        //    server3.Start();
+        //    log.logView += "Server3 opened successfully\n";
 
-            while (true)
-            {
-                try
-                {
-                    log.logView += "Server3 is waiting for clients...\n";
-                    clientSocket3 = server3.AcceptTcpClient(); // client 소켓 접속 허용
+        //    while (true)
+        //    {
+        //        try
+        //        {
+        //            log.logView += "Server3 is waiting for clients...\n";
+        //            clientSocket3 = server3.AcceptTcpClient(); // client 소켓 접속 허용
 
 
-                    NetworkStream stream = clientSocket3.GetStream();
+        //            NetworkStream stream = clientSocket3.GetStream();
 
-                    byte[] buffer = new byte[1024]; // 버퍼
-                    int bytes = stream.Read(buffer, 0, buffer.Length);
-                    string user_name = Encoding.Unicode.GetString(buffer, 0, bytes);
-                    user_name = "Dashboard"; // client 사용자 명
+        //            byte[] buffer = new byte[1024]; // 버퍼
+        //            int bytes = stream.Read(buffer, 0, buffer.Length);
+        //            string user_name = Encoding.Unicode.GetString(buffer, 0, bytes);
+        //            user_name = "Dashboard"; // client 사용자 명
 
-                    clientList.Add(clientSocket3, user_name); // cleint 리스트에 추가
+        //            clientList.Add(clientSocket3, user_name); // cleint 리스트에 추가
 
-                    SendMessageAll(user_name + " 님이 입장하셨습니다.", "", false); // 모든 client에게 메세지 전송
+        //            SendMessageAll(user_name + " 님이 입장하셨습니다.", "", false); // 모든 client에게 메세지 전송
 
-                    HandleClient3 h_client = new HandleClient3(); // 클라이언트 추가
-                    h_client.OnReceived += new HandleClient3.MessageDisplayHandler(OnReceived);
-                    h_client.OnDisconnected += new HandleClient3.DisconnectedHandler(h_client_OnDisconnected);
-                    h_client.SendData += new HandleClient3.DataSendHandler(SendData);
-                    h_client.startClient(clientSocket3, clientList);
-                }
+        //            HandleClient3 h_client = new HandleClient3(); // 클라이언트 추가
+        //            h_client.OnReceived += new HandleClient3.MessageDisplayHandler(OnReceived);
+        //            h_client.OnDisconnected += new HandleClient3.DisconnectedHandler(h_client_OnDisconnected);
+        //            h_client.SendData += new HandleClient3.DataSendHandler(SendData);
+        //            h_client.startClient(clientSocket3, clientList);
+        //        }
 
-                catch (SocketException se) { break; }
+        //        catch (SocketException se) { break; }
 
-                catch (Exception ex) { break; }
+        //        catch (Exception ex) { break; }
 
-            }
+        //    }
 
-            if (clientSocket3 != null)
-            {
-                clientSocket3.Close(); // client 소켓 닫기
-            }
+        //    if (clientSocket3 != null)
+        //    {
+        //        clientSocket3.Close(); // client 소켓 닫기
+        //    }
             
-            log.logView += "Server3 closed\n";
+        //    log.logView += "Server3 closed\n";
 
-        }
+        //}
 
         
+        private void OnSent(JArray jArray)
+        {
+            var pair = from list in clientList
+                       where list.Value == "OrderTable"
+                       select list.Key;
+            
+            TcpClient client = pair.FirstOrDefault() as TcpClient;
+            NetworkStream stream = client.GetStream();
+
+            byte[] send_JsonData = new byte[23500];
+            string send_JsonString = JsonConvert.SerializeObject(jArray, Formatting.Indented);
+            send_JsonData = Encoding.Unicode.GetBytes(send_JsonString);
+
+            stream.Write(send_JsonData, 0, send_JsonData.Length);
+            stream.Flush();
+        }
 
         void h_client_OnDisconnected(TcpClient clientSocket) // cleint 접속 해제 핸들러
         {
@@ -315,23 +332,23 @@ namespace CosmeticShampoo.Server.UserControls.MainViewer
             }
         }
 
-        public void SendData(JArray data)
-        {
-            var pair = from list in clientList
-                       where list.Value == "Dashboard"
-                       select list.Key;
+        //public void SendData(JArray data)
+        //{
+        //    var pair = from list in clientList
+        //               where list.Value == "Dashboard"
+        //               select list.Key;
 
-            TcpClient client = pair as TcpClient;
-            NetworkStream stream = client.GetStream();
+        //    TcpClient client = pair as TcpClient;
+        //    NetworkStream stream = client.GetStream();
 
-            byte[] send_data = new byte[23500];
-            string send_st = JsonConvert.SerializeObject(data);
-            send_data = Encoding.Unicode.GetBytes(send_st);
+        //    byte[] send_data = new byte[23500];
+        //    string send_st = JsonConvert.SerializeObject(data);
+        //    send_data = Encoding.Unicode.GetBytes(send_st);
 
-            stream.Write(send_data, 0, send_data.Length);
-            stream.Flush();
+        //    stream.Write(send_data, 0, send_data.Length);
+        //    stream.Flush();
 
-        }
+        //}
 
 
 

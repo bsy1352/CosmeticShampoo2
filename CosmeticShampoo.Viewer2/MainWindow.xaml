@@ -102,8 +102,8 @@
 
                         <Border x:Name="PopUpMenu" BorderBrush="Black" Margin="47,-84,81,34" Visibility="Collapsed"  BorderThickness="1" Grid.ColumnSpan="2">
                             <StackPanel  Background="White"  >
-                                <Button Content="계정" Height="40" Background="Transparent" BorderThickness="0 0 0 1"></Button>
-                                <Button Content="프로그램 정보" Height="40" Background="Transparent" BorderThickness="0 0 0 1"></Button>
+                                <Button Content="계정 설정" Height="40" Background="Transparent" BorderThickness="0 0 0 1"></Button>
+                                <Button Content="프로그램 설정" Height="40" Background="Transparent" BorderThickness="0 0 0 1" Click="Settings_Click" ></Button>
                                 <Button Content="로그아웃" Height="40" Background="Transparent" BorderThickness="0 0 0 0" Click="LogOut_Click"></Button>
                             </StackPanel>
                         </Border>
