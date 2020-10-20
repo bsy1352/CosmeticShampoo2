@@ -2,10 +2,17 @@
 using CosmeticShampoo.Viewer2.Utility_Views;
 using CosmeticShampoo.Viewer2.ViewModels;
 using MahApps.Metro.IconPacks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
+using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,6 +24,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace CosmeticShampoo.Viewer2
 {
@@ -30,7 +39,13 @@ namespace CosmeticShampoo.Viewer2
 
         UserMenuDropDown Statistics;
 
-        UserControl_Settings settings = new UserControl_Settings();
+        UserControl_Settings settings;
+
+        TcpClient clientSocket; // 소켓
+
+        NetworkStream stream = default(NetworkStream);
+
+        string message = string.Empty;
 
         public MainWindow()
         {
@@ -65,22 +80,151 @@ namespace CosmeticShampoo.Viewer2
             }
         }
 
-        
-        private void Window_Initialized(object sender, EventArgs e)
+        private string getIpAddress()
         {
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.Load(Environment.CurrentDirectory + "\\xml\\Settings.xml");
+            XmlNode xNode = xmlDoc.SelectSingleNode("/descendant::Settings/IpAddress");
+
+            string ipAddress = xNode.InnerText;
+
+
+            return ipAddress;
+        }
+
+        private string getPort()
+        {
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.Load(Environment.CurrentDirectory + "\\xml\\Settings.xml");
+            XmlNode xNode = xmlDoc.SelectSingleNode("/descendant::Settings/Port");
+
+            string Port = xNode.InnerText;
+
+
+            return Port;
+        }
+
+        private bool disconnectToServer()
+        {
+            try
+            {
+                byte[] buffer = Encoding.Unicode.GetBytes("leaveChat" + "$");
+                stream.Write(buffer, 0, buffer.Length);
+                stream.Flush();
+
+                Thread.Sleep(1000);
+                stream.Close();
+                clientSocket.Close();
+                stream.Dispose();
+                clientSocket.Dispose();
+                
+                
+
+
+            }catch(Exception ex)
+            {
+                return false;
+            }
             
 
+            return true;
+        }
+        private bool connectToServer()
+        {
+            try
+            {
 
-   
+                IPEndPoint serverAddress = new IPEndPoint(IPAddress.Parse(getIpAddress()), Convert.ToInt32(getPort()));
+                clientSocket = new TcpClient();
+                clientSocket.Connect(serverAddress); // 접속 IP 및 포트
+                stream = clientSocket.GetStream();
+
+            }
+            catch (Exception e2)
+            {
+
+                MessageBox.Show("서버가 실행중이 아닙니다.", "연결 실패!");
+                return false;
+            }
+
+            
+            //클라이언트 이름
+            byte[] buffer = Encoding.Unicode.GetBytes("Dashboard$");
+            stream.Write(buffer, 0, buffer.Length);
+            stream.Flush();
+
+            return true;
+        }
+
+        private void SendMessage(string msg)
+        {
+
+            byte[] buffer = Encoding.Unicode.GetBytes(msg + "$");
+            stream.Write(buffer, 0, buffer.Length);
+            stream.Flush();
+
+        }
+
+        private void GetData() // 메세지 받기
+        {
+
+            while (true)
+            {
+
+                stream = clientSocket.GetStream();
+                int BUFFERSIZE = clientSocket.ReceiveBufferSize;
+                byte[] buffer = new byte[BUFFERSIZE];
+                int bytes = stream.Read(buffer, 0, buffer.Length);
+
+
+                string message = Encoding.Unicode.GetString(buffer, 0, bytes);
+
+                //Json 거르기
+                if (message.StartsWith("["))
+                {
+
+                    List<Orders> orderlists = new List<Orders>();
+                    JArray array = JsonConvert.DeserializeObject<JArray>(message);
+
+                    foreach (JObject data in array.Reverse())
+                    {
+                        string datas = JsonConvert.SerializeObject(data);
+                        orderlists.Add(JsonConvert.DeserializeObject<Orders>(datas));
+
+                    }
+
+
+                    //OrderGrid.Dispatcher.BeginInvoke(new Action(delegate
+                    //{
+                    //    OrderGrid.ItemsSource = null;
+                    //    OrderGrid.Items.Refresh();
+                    //    OrderGrid.ItemsSource = orderlists;
+
+                    //}));
+
+
+                    continue;
+                }
+
+            }
+
+
+        }
+
+        private void Window_Initialized(object sender, EventArgs e)
+        {
+            settings = new UserControl_Settings(this);
+
+            settings.OnConnected += new UserControl_Settings.connectedHandler(connectToServer);
+            settings.OnDisconnected += new UserControl_Settings.DisconnectedHandler(disconnectToServer);
             //menuSetting.Add(new SubItem("Employees"));
             //menuSetting.Add(new SubItem("Products"));
 
-          
+
             var item1 = new ItemMenu("대시보드", PackIconMaterialKind.MonitorDashboard, new UserControl_Dashboard());
 
             var menuProgramSetting = new List<SubItem>();
             menuProgramSetting.Add(new SubItem("관리자 설정", new UserControl_AdminSetting(this)));
-            menuProgramSetting.Add(new SubItem("컨트롤 설정", new UserControl_Settings("컨트롤 설정")));
 
             var item2 = new ItemMenu("프로그램 설정", menuProgramSetting, PackIconMaterialKind.Robot);
 
@@ -135,11 +279,6 @@ namespace CosmeticShampoo.Viewer2
         {
             Time_Date.Text = DateTime.Now.ToString("yyyy-MM-dd");
             Time_Hour.Text = DateTime.Now.ToString("HH : mm : ss");
-        }
-
-        private void ScrollViewer_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            MessageBox.Show("hello");
         }
 
         private void Settings_Click(object sender, RoutedEventArgs e)

@@ -124,6 +124,7 @@
     <Compile Include="ViewModels\HandleClient.cs" />
     <Compile Include="ViewModels\HandleClient2.cs" />
     <Compile Include="ViewModels\HandleClient3.cs" />
+    <Compile Include="ViewModels\IpAddress.cs" />
     <Compile Include="ViewModels\Log.cs" />
     <Compile Include="ViewModels\Orders.cs" />
     <Page Include="MainWindow.xaml">

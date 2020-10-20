@@ -69,27 +69,18 @@ namespace CosmeticShampoo.Viewer2.Pages
 
             //클라이언트 이름
             byte[] buffer = Encoding.Unicode.GetBytes("OrderTable$");
-
             stream.Write(buffer, 0, buffer.Length);
-
             stream.Flush();
 
 
             Thread Receive_handler = new Thread(SendMessage);
-
             Receive_handler.IsBackground = true;
-
             Receive_handler.Start();
 
-
             Thread Get_handler = new Thread(GetData);
-
             Get_handler.IsBackground = true;
-
             Get_handler.Start();
 
-
-            
 
 
         }
@@ -125,7 +116,6 @@ namespace CosmeticShampoo.Viewer2.Pages
                 {
 
                     List<Orders> orderlists = new List<Orders>();
-
                     JArray array = JsonConvert.DeserializeObject<JArray>(message);
 
                     foreach (JObject data in array.Reverse())

@@ -110,8 +110,8 @@
     <Compile Include="Pages\Dashboard\UserControl_Dashboard_Total.xaml.cs">
       <DependentUpon>UserControl_Dashboard_Total.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Settings\UserControl_Setting.xaml.cs">
-      <DependentUpon>UserControl_Setting.xaml</DependentUpon>
+    <Compile Include="Pages\SocketPopUp.xaml.cs">
+      <DependentUpon>SocketPopUp.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Statistics\UserControl_Errors.xaml.cs">
       <DependentUpon>UserControl_Errors.xaml</DependentUpon>
@@ -132,6 +132,7 @@
       <DependentUpon>UserMenuDropDown.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\Dashboard.cs" />
+    <Compile Include="ViewModels\IpAddress.cs" />
     <Compile Include="ViewModels\ItemMenu.cs" />
     <Compile Include="ViewModels\Orders.cs" />
     <Compile Include="ViewModels\Settings.cs" />
@@ -185,7 +186,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Settings\UserControl_Setting.xaml">
+    <Page Include="Pages\SocketPopUp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -242,6 +243,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Controllers\" />
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>

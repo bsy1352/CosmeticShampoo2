@@ -28,6 +28,7 @@ namespace CosmeticShampoo.Viewer2.Pages
         public UserControl_Dashboard()
         {
             InitializeComponent();
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

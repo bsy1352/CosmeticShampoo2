@@ -5,8 +5,26 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CosmeticShampoo.Viewer2.Pages"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" >
+             d:DesignHeight="450" d:DesignWidth="800" Background="White">
     <Grid>
-        <TextBlock  VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Path = Text}"></TextBlock>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0" Grid.Column="0">
+            <StackPanel Orientation="Horizontal" Margin="30 0 0 0">
+                <Ellipse x:Name="ConnetionCheckCircle" Height="30" Width="30" StrokeThickness="1" Stroke="Black" Fill="Red" Margin="0 0 30 0" />
+                <TextBlock Text="서버 연결" FontSize="30" VerticalAlignment="Center" Margin="0 0 30 0"/>
+                <Button x:Name="ConnectBtn" VerticalAlignment="Center" Height="30" Width="50" Content="연결" Margin="0 0 10 0" Click="Connect_Click"/>
+                <Button VerticalAlignment="Center" Height="30" Width="50" Content="설정" Click="Setting_Click" />
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>

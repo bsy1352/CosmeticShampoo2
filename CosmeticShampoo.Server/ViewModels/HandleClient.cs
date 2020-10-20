@@ -49,7 +49,7 @@ namespace CosmeticShampoo.Server.ViewModels
                 int MessageCount = 0;
 
                 while (true)
-                {                   //서버니깐 받는거 밖에 없다. 클라이언트 끼리의 내용을 서버에서 보여줌
+                {                   
                     MessageCount++;
                     stream = clientSocket.GetStream();
                     bytes = stream.Read(buffer, 0, buffer.Length);
@@ -59,16 +59,22 @@ namespace CosmeticShampoo.Server.ViewModels
                     switch (msg)
                     {
                         case "ShowOrders":
+                            if (OnReceived != null)
+                                OnReceived(msg, clientList[clientSocket].ToString());
                             Thread newThread = new Thread(ShowOrders);
                             newThread.Start();
+                            break;
+
+                        case "leaveChat":
+                            OnReceived(msg, clientList[clientSocket].ToString());
+                            OnDisconnected(clientSocket);
                             break;
 
                         default:
                             break;
                     }
                     
-                    if (OnReceived != null)
-                        OnReceived(msg, clientList[clientSocket].ToString());
+                    
 
                     
                 }
