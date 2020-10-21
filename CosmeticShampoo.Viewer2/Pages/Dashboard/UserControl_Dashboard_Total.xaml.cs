@@ -9,12 +9,12 @@ namespace CosmeticShampoo.Viewer2.Pages
     /// </summary>
     public partial class UserControl_Dashboard_Total : UserControl
     {
-        UserControl_Dashboard parent;
-        UserControl_Dashboard_OrderList orderList;
-        UserControl_Dashboard_Statistics statistics;
+        public UserControl_Dashboard Parent;
+        public UserControl_Dashboard_OrderList orderList;
+        public UserControl_Dashboard_Statistics statistics;
         public UserControl_Dashboard_Total(UserControl_Dashboard Parent)
         {
-            parent = Parent;
+            this.Parent = Parent;
             orderList = new UserControl_Dashboard_OrderList(this);
             statistics = new UserControl_Dashboard_Statistics(this);
             InitializeComponent();

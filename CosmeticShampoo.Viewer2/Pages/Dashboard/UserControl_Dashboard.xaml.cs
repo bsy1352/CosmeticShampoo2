@@ -23,10 +23,14 @@ namespace CosmeticShampoo.Viewer2.Pages
     {
         List<Button> btnlist = new List<Button>();
 
-        UserControl_Dashboard_Total total = null;
+        public UserControl_Dashboard_Total total;
+
+        public MainWindow Parent;
         
-        public UserControl_Dashboard()
+        public UserControl_Dashboard(MainWindow Parent)
         {
+            this.Parent = Parent;
+            total = new UserControl_Dashboard_Total(this);
             InitializeComponent();
 
         }
@@ -49,13 +53,6 @@ namespace CosmeticShampoo.Viewer2.Pages
                 btnlist.Add(btn);
             }
 
-           if(total == null)
-            {
-                total = new UserControl_Dashboard_Total(this);
-            }
-            
-            
-            
 
         }
 

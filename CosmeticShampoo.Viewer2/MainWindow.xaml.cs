@@ -47,12 +47,16 @@ namespace CosmeticShampoo.Viewer2
 
         string message = string.Empty;
 
+        public delegate void ShowOrdersHandler(string msg);
+        public event ShowOrdersHandler ShowOrders;
         public MainWindow()
         {
             DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = new TimeSpan(0, 0, 1);
             timer.Tick += Timer_Tick;
             timer.Start();
+
+            
             InitializeComponent();
         }
 
@@ -117,8 +121,6 @@ namespace CosmeticShampoo.Viewer2
                 clientSocket.Close();
                 stream.Dispose();
                 clientSocket.Dispose();
-                
-                
 
 
             }catch(Exception ex)
@@ -153,6 +155,10 @@ namespace CosmeticShampoo.Viewer2
             stream.Write(buffer, 0, buffer.Length);
             stream.Flush();
 
+            Thread ReceiveMsgthread = new Thread(ReceiveMsg);
+            ReceiveMsgthread.IsBackground = true;
+            ReceiveMsgthread.Start();
+            
             return true;
         }
 
@@ -165,7 +171,12 @@ namespace CosmeticShampoo.Viewer2
 
         }
 
-        private void GetData() // 메세지 받기
+        private void ShowOrder(string msg)
+        {
+            ShowOrders(msg);
+        }
+
+        private void ReceiveMsg() // 메세지 받기
         {
 
             while (true)
@@ -175,36 +186,28 @@ namespace CosmeticShampoo.Viewer2
                 int BUFFERSIZE = clientSocket.ReceiveBufferSize;
                 byte[] buffer = new byte[BUFFERSIZE];
                 int bytes = stream.Read(buffer, 0, buffer.Length);
+                
+                string raw_message = Encoding.Unicode.GetString(buffer, 0, bytes);
+                string Header = raw_message.Substring(0, raw_message.IndexOf("$"));
+                string message = raw_message.Remove(0, Header.Length + 1);
 
 
-                string message = Encoding.Unicode.GetString(buffer, 0, bytes);
 
-                //Json 거르기
-                if (message.StartsWith("["))
+                switch (Header)
                 {
+                    case "OrderList":
+                        Thread OrderlistThread = new Thread(() => {
+                            ShowOrder(message);
+                        });
+                        OrderlistThread.IsBackground = true;
+                        OrderlistThread.Start();
+                        break;
 
-                    List<Orders> orderlists = new List<Orders>();
-                    JArray array = JsonConvert.DeserializeObject<JArray>(message);
-
-                    foreach (JObject data in array.Reverse())
-                    {
-                        string datas = JsonConvert.SerializeObject(data);
-                        orderlists.Add(JsonConvert.DeserializeObject<Orders>(datas));
-
-                    }
-
-
-                    //OrderGrid.Dispatcher.BeginInvoke(new Action(delegate
-                    //{
-                    //    OrderGrid.ItemsSource = null;
-                    //    OrderGrid.Items.Refresh();
-                    //    OrderGrid.ItemsSource = orderlists;
-
-                    //}));
-
-
-                    continue;
+                    default:
+                        break;
                 }
+                
+               
 
             }
 
@@ -220,8 +223,10 @@ namespace CosmeticShampoo.Viewer2
             //menuSetting.Add(new SubItem("Employees"));
             //menuSetting.Add(new SubItem("Products"));
 
+            UserControl_Dashboard dashboard = new UserControl_Dashboard(this);
+            dashboard.total.orderList.SendMsg += new UserControl_Dashboard_OrderList.SendMessage(SendMessage);
 
-            var item1 = new ItemMenu("대시보드", PackIconMaterialKind.MonitorDashboard, new UserControl_Dashboard());
+            var item1 = new ItemMenu("대시보드", PackIconMaterialKind.MonitorDashboard, dashboard);
 
             var menuProgramSetting = new List<SubItem>();
             menuProgramSetting.Add(new SubItem("관리자 설정", new UserControl_AdminSetting(this)));

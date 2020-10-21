@@ -167,16 +167,16 @@ namespace CosmeticShampoo.Server.UserControls.MainViewer
         private void OnSent(JArray jArray)
         {
             var pair = from list in clientList
-                       where list.Value == "OrderTable"
+                       where list.Value == "Dashboard"
                        select list.Key;
             
             TcpClient client = pair.FirstOrDefault() as TcpClient;
             NetworkStream stream = client.GetStream();
 
             byte[] send_JsonData = new byte[23500];
-            string send_JsonString = JsonConvert.SerializeObject(jArray, Formatting.Indented);
-            send_JsonData = Encoding.Unicode.GetBytes(send_JsonString);
-
+            string JsonString = JsonConvert.SerializeObject(jArray, Formatting.Indented);
+            string JsonWithHeader = "OrderList$" + JsonString;
+            send_JsonData = Encoding.Unicode.GetBytes(JsonWithHeader);
             stream.Write(send_JsonData, 0, send_JsonData.Length);
             stream.Flush();
         }
