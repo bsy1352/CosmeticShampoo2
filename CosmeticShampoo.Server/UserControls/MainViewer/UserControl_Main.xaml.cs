@@ -49,8 +49,6 @@ namespace CosmeticShampoo.Server.UserControls.MainViewer
         {
             InitializeComponent();
             this.DataContext = log;
-
-            
         }
 
 
@@ -61,15 +59,9 @@ namespace CosmeticShampoo.Server.UserControls.MainViewer
         public void StartUpServer()
         {
             Thread t = new Thread(InitSocket);
-            t.IsBackground = true;
-            //Thread t2 = new Thread(InitSocket2);
-            //t2.IsBackground = true;
-            //Thread t3 = new Thread(InitSocket3);
-            //t3.IsBackground = true;
-
+            t.IsBackground = true;           
             t.Start();
-            //t2.Start();
-            //t3.Start();
+           
         }
         
 
@@ -140,6 +132,7 @@ namespace CosmeticShampoo.Server.UserControls.MainViewer
                     h_client.OnReceived += new HandleClient.MessageDisplayHandler(OnReceived);
                     h_client.OnDisconnected += new HandleClient.DisconnectedHandler(h_client_OnDisconnected);
                     h_client.OnSent += new HandleClient.SendJsonHandler(OnSent);
+                    h_client.OnSentLoginInfo += new HandleClient.SendLoginJsonHandler(OnSentLoginInfo);
                     h_client.startClient(clientSocket, clientList);
                 }
                 catch (SocketException se)
@@ -163,7 +156,35 @@ namespace CosmeticShampoo.Server.UserControls.MainViewer
 
         }
 
-       
+        private void OnSentLoginInfo(bool isEnable, JArray jArray)
+        {
+            var pair = from list in clientList
+                       where list.Value == "Login"
+                       select list.Key;
+
+            TcpClient client = pair.FirstOrDefault() as TcpClient;
+            NetworkStream stream = client.GetStream();
+
+            string JsonString = null;
+            byte[] send_JsonData = new byte[23500];
+
+
+            if (isEnable == true)
+            {
+                JsonString = "true$" + JsonConvert.SerializeObject(jArray, Formatting.Indented);
+                send_JsonData = Encoding.Unicode.GetBytes(JsonString);
+            }
+            else
+            {
+                JsonString = "false$";
+                send_JsonData = Encoding.Unicode.GetBytes(JsonString);
+            }
+            
+            
+            stream.Write(send_JsonData, 0, send_JsonData.Length);
+            stream.Flush();
+        }
+
         private void OnSent(JArray jArray)
         {
             var pair = from list in clientList

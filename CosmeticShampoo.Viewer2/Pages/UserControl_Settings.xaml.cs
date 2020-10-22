@@ -58,6 +58,7 @@ namespace CosmeticShampoo.Viewer2.Pages
 
         private void Setting_Click(object sender, RoutedEventArgs e)
         {
+            
             SocketPopUp addUser = new SocketPopUp(this);
 
             _Parent.Opacity = 0.6;

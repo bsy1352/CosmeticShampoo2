@@ -49,6 +49,8 @@ namespace CosmeticShampoo.Viewer2
 
         public delegate void ShowOrdersHandler(string msg);
         public event ShowOrdersHandler ShowOrders;
+
+        public bool isConnected { get; set; } = false;
         public MainWindow()
         {
             DispatcherTimer timer = new DispatcherTimer();
@@ -112,6 +114,7 @@ namespace CosmeticShampoo.Viewer2
         {
             try
             {
+                isConnected = false;
                 byte[] buffer = Encoding.Unicode.GetBytes("leaveChat" + "$");
                 stream.Write(buffer, 0, buffer.Length);
                 stream.Flush();
@@ -127,15 +130,15 @@ namespace CosmeticShampoo.Viewer2
             {
                 return false;
             }
-            
 
+            
             return true;
         }
         private bool connectToServer()
         {
             try
             {
-
+                isConnected = true;
                 IPEndPoint serverAddress = new IPEndPoint(IPAddress.Parse(getIpAddress()), Convert.ToInt32(getPort()));
                 clientSocket = new TcpClient();
                 clientSocket.Connect(serverAddress); // 접속 IP 및 포트
@@ -164,10 +167,17 @@ namespace CosmeticShampoo.Viewer2
 
         private void SendMessage(string msg)
         {
+            try
+            {
+                byte[] buffer = Encoding.Unicode.GetBytes(msg + "$");
+                stream.Write(buffer, 0, buffer.Length);
+                stream.Flush();
 
-            byte[] buffer = Encoding.Unicode.GetBytes(msg + "$");
-            stream.Write(buffer, 0, buffer.Length);
-            stream.Flush();
+            }catch(Exception ex)
+            {
+                return;
+            }
+            
 
         }
 
@@ -178,38 +188,46 @@ namespace CosmeticShampoo.Viewer2
 
         private void ReceiveMsg() // 메세지 받기
         {
-
-            while (true)
+            try
             {
-
-                stream = clientSocket.GetStream();
-                int BUFFERSIZE = clientSocket.ReceiveBufferSize;
-                byte[] buffer = new byte[BUFFERSIZE];
-                int bytes = stream.Read(buffer, 0, buffer.Length);
-                
-                string raw_message = Encoding.Unicode.GetString(buffer, 0, bytes);
-                string Header = raw_message.Substring(0, raw_message.IndexOf("$"));
-                string message = raw_message.Remove(0, Header.Length + 1);
-
-
-
-                switch (Header)
+                while (true)
                 {
-                    case "OrderList":
-                        Thread OrderlistThread = new Thread(() => {
-                            ShowOrder(message);
-                        });
-                        OrderlistThread.IsBackground = true;
-                        OrderlistThread.Start();
-                        break;
 
-                    default:
-                        break;
+                    stream = clientSocket.GetStream();
+                    int BUFFERSIZE = clientSocket.ReceiveBufferSize;
+                    byte[] buffer = new byte[BUFFERSIZE];
+                    int bytes = stream.Read(buffer, 0, buffer.Length);
+
+                    string raw_message = Encoding.Unicode.GetString(buffer, 0, bytes);
+
+                    string Header = raw_message.Substring(0, raw_message.IndexOf("$"));
+                    string message = raw_message.Remove(0, Header.Length + 1);
+
+                    switch (Header)
+                    {
+                        case "OrderList":
+                            Thread OrderlistThread = new Thread(() => {
+                                ShowOrder(message);
+                            });
+                            OrderlistThread.IsBackground = true;
+                            OrderlistThread.Start();
+                            break;
+
+                        default:
+                            break;
+                    }
+
+
+
                 }
-                
-               
-
             }
+            catch(Exception ex)
+            {
+                return;
+            }
+            
+
+            
 
 
         }
@@ -289,6 +307,13 @@ namespace CosmeticShampoo.Viewer2
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
             SwitchScreens(settings);
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            byte[] buffer = Encoding.Unicode.GetBytes("leaveChat" + "$");
+            stream.Write(buffer, 0, buffer.Length);
+            stream.Flush();
         }
     }
 

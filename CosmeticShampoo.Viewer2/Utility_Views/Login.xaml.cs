@@ -1,6 +1,11 @@
-﻿using System;
+﻿using CosmeticShampoo.Viewer2.ViewModels;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -19,6 +24,8 @@ namespace CosmeticShampoo.Viewer2.Utility_Views
     /// </summary>
     public partial class Login : Window
     {
+        TcpClient clientSocket;
+        NetworkStream stream;
         public MainWindow Parent { get; set; }
         public Login(MainWindow parent = null)
         {
@@ -62,8 +69,57 @@ namespace CosmeticShampoo.Viewer2.Utility_Views
 
         private void comfirmbtn_Click(object sender, RoutedEventArgs e)
         {
+
+            try
+            {
+                IPEndPoint serverAddress = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9991);
+                clientSocket = new TcpClient();
+                clientSocket.Connect(serverAddress); // 접속 IP 및 포트
+                stream = clientSocket.GetStream();
+
+            }
+            catch (Exception e2)
+            {
+                MessageBox.Show("서버가 실행중이 아닙니다.", "연결 실패!");
+                return;
+            }
+
+
+            byte[] buffer = Encoding.Unicode.GetBytes("Login$"+ username.Text+"_"+ password.Text);
+            stream.Write(buffer, 0, buffer.Length);
+            stream.Flush();
+
+            int BUFFERSIZE = clientSocket.ReceiveBufferSize;
+            buffer = new byte[BUFFERSIZE];
+            int bytes = stream.Read(buffer, 0, buffer.Length);
+
+            string raw_message = Encoding.Unicode.GetString(buffer, 0, bytes);
+
+            string trueOrFalse = raw_message.Substring(0, raw_message.IndexOf("$"));
+            string UserJson = raw_message.Remove(0, trueOrFalse.Length + 1);
+
+            if(trueOrFalse == "true")
+            {
+                
+                JArray array = JsonConvert.DeserializeObject<JArray>(UserJson);
+
+                
+                string datas = JsonConvert.SerializeObject(array.First);
+                users User = JsonConvert.DeserializeObject<users>(datas);
+
+                MainWindow main = new MainWindow(User);
+                main.Show();
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("아이디 혹은 비밀번호가 틀렸습니다.");
+            }
+
             string id = "bong";
             string pw = "1";
+
+            
 
             if (id == username.Text)
             {
@@ -92,6 +148,8 @@ namespace CosmeticShampoo.Viewer2.Utility_Views
                 MessageBox.Show("아이디 혹은 비밀번호가 틀립니다.");
             }
         }
+
+        
 
         private void username_GotFocus(object sender, RoutedEventArgs e)
         {

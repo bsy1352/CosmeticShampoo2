@@ -34,11 +34,17 @@ namespace CosmeticShampoo.Viewer2.Pages
         public delegate void SendMessage(string msg);
         public event SendMessage SendMsg;
 
+        bool isDisconnected;
+
         public UserControl_Dashboard_OrderList(UserControl_Dashboard_Total Total)
         {
             total = Total;
             total.Parent.Parent.ShowOrders += new MainWindow.ShowOrdersHandler(GetData);
-            
+
+            Thread newTh = new Thread(OnSend);
+            newTh.IsBackground = true;
+            newTh.Start();
+
             InitializeComponent();
             
         }
@@ -49,7 +55,12 @@ namespace CosmeticShampoo.Viewer2.Pages
         {
             while (true)
             {
-                Thread.Sleep(2000);
+                if (!total.Parent.Parent.isConnected)
+                {
+                    continue;
+                }
+
+                Thread.Sleep(100);
                 SendMsg("ShowOrders");
             }
         }
@@ -81,9 +92,7 @@ namespace CosmeticShampoo.Viewer2.Pages
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
 
-            Thread newTh = new Thread(OnSend);
-            newTh.IsBackground = true;
-            newTh.Start();
+            
         }
     }
 }

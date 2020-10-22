@@ -35,8 +35,12 @@ namespace CosmeticShampoo.Server.ViewModels
         public delegate void DisconnectedHandler(TcpClient clientSocket);
         public event DisconnectedHandler OnDisconnected;
 
+        
         public delegate void SendJsonHandler(JArray jArray);
         public event SendJsonHandler OnSent;
+
+        public delegate void SendLoginJsonHandler(bool isEnable, JArray jArray);
+        public event SendLoginJsonHandler OnSentLoginInfo;
 
         private void doChat()
         {
@@ -45,6 +49,7 @@ namespace CosmeticShampoo.Server.ViewModels
             {
                 byte[] buffer = new byte[1024];
                 string msg = string.Empty;
+                string header = string.Empty;
                 int bytes = 0;
                 int MessageCount = 0;
 
@@ -54,9 +59,9 @@ namespace CosmeticShampoo.Server.ViewModels
                     stream = clientSocket.GetStream();
                     bytes = stream.Read(buffer, 0, buffer.Length);
                     msg = Encoding.Unicode.GetString(buffer, 0, bytes);
-                    msg = msg.Substring(0, msg.IndexOf("$"));
+                    header = msg.Substring(0, msg.IndexOf("$"));
 
-                    switch (msg)
+                    switch (header)
                     {
                         case "ShowOrders":
                             if (OnReceived != null)
@@ -68,6 +73,16 @@ namespace CosmeticShampoo.Server.ViewModels
                         case "leaveChat":
                             OnReceived(msg, clientList[clientSocket].ToString());
                             OnDisconnected(clientSocket);
+                            break;
+
+                        case "Login":
+                            OnReceived("로그인 시도", clientList[clientSocket].ToString());
+                            string message = msg.Remove(0, header.Length + 1);
+                            Thread LoginThread = new Thread(() => {
+
+                                Login(message);
+                            });
+                            LoginThread.Start();
                             break;
 
                         default:
@@ -107,6 +122,33 @@ namespace CosmeticShampoo.Server.ViewModels
             }
         }
 
+        private void Login(string param)
+        {
+            JArray jArray = new JArray();
+            string[] result = param.Split('_');
+            string id = result[0];
+            string password = result[1];
+
+            var db = new grancoEntities();
+
+            users user = db.users.FirstOrDefault<users>(u => u.UserID.Equals(id) && u.UserPW.Equals(password));
+
+            if(user != null)
+            {
+                var jsonString = JObject.FromObject(user);
+                jArray.Add(jsonString);
+                OnSentLoginInfo(true, jArray);
+                
+            }
+            else
+            {
+                OnSentLoginInfo(false, null);
+            }
+            
+
+            
+        }
+
         private void ShowOrders()
         {
             JArray jArray = new JArray();
@@ -118,7 +160,6 @@ namespace CosmeticShampoo.Server.ViewModels
 
             conn.Open();
             string select = "Select * from orders";
-            //string select = "Select Ethanol, Aloe_gel, Scent_Oil from recipe where R_Name = 'Orange'";
             cmd = new MySqlCommand(select, conn);
             reader = cmd.ExecuteReader();
 
