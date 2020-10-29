@@ -80,7 +80,7 @@
                     <Grid Grid.Row="0">
                         <iconPacks:PackIconMaterial Kind="AccountCircle" VerticalAlignment="Center" Opacity="0.5" HorizontalAlignment="Center" Foreground="#FFFD4893" Height="136" Width="185" Margin="28,23,37,71"/>
                         <Border BorderThickness="0 0 0 1" BorderBrush="Black" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="58,0,67,28" Width="125" >
-                            <TextBlock Text="홍 길 동" FontFamily="Nanumsquare" TextAlignment="Center" FontSize=" 22" VerticalAlignment="Bottom" HorizontalAlignment="Center"   Width="150" Margin="22,0,23,0" Height="29" />
+                            <TextBlock x:Name="UserName" FontFamily="Nanumsquare" TextAlignment="Center" FontSize=" 22" VerticalAlignment="Bottom" HorizontalAlignment="Center"  Width="150" Margin="22,0,23,0" Height="29"/>
                         </Border>
 
                     </Grid>

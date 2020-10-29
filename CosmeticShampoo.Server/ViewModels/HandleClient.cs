@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using CosmeticShampoo.Server.DBmodel;
+using MySql.Data.MySqlClient;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -130,6 +131,8 @@ namespace CosmeticShampoo.Server.ViewModels
             string password = result[1];
 
             var db = new grancoEntities();
+
+            
 
             users user = db.users.FirstOrDefault<users>(u => u.UserID.Equals(id) && u.UserPW.Equals(password));
 

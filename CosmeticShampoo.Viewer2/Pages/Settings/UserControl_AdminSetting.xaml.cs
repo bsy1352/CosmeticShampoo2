@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CosmeticShampoo.Viewer2.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,8 +22,10 @@ namespace CosmeticShampoo.Viewer2.Pages
     public partial class UserControl_AdminSetting : UserControl
     {
         public MainWindow _Parent { get; set; }
+        
         public UserControl_AdminSetting(MainWindow parent)
         {
+            
             _Parent = parent;
             InitializeComponent();
         }

@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.Text;
@@ -49,14 +50,15 @@ namespace CosmeticShampoo.Viewer2
 
         public delegate void ShowOrdersHandler(string msg);
         public event ShowOrdersHandler ShowOrders;
-
+        users CurrentUser;
         public bool isConnected { get; set; } = false;
-        public MainWindow()
+        public MainWindow(users user, HttpClient client)
         {
             DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = new TimeSpan(0, 0, 1);
             timer.Tick += Timer_Tick;
             timer.Start();
+            CurrentUser = user;
 
             
             InitializeComponent();
@@ -234,6 +236,7 @@ namespace CosmeticShampoo.Viewer2
 
         private void Window_Initialized(object sender, EventArgs e)
         {
+            UserName.Text = CurrentUser.UserName;
             settings = new UserControl_Settings(this);
 
             settings.OnConnected += new UserControl_Settings.connectedHandler(connectToServer);
@@ -270,8 +273,7 @@ namespace CosmeticShampoo.Viewer2
             Menu.Children.Add(ProgramSetting);
             Menu.Children.Add(this.Statistics);
 
-            DataContext = this;
-
+            this.DataContext = this;
         }
 
         private void PopUpMenuBtn_Click(object sender, RoutedEventArgs e)
@@ -289,7 +291,9 @@ namespace CosmeticShampoo.Viewer2
                 Login login = new Login(this);
                 PopUpMenu.Visibility = Visibility.Collapsed;
                 this.Opacity = 0.6;
+                this.Close();
                 login.ShowDialog();
+                
             }
         }
 
@@ -311,9 +315,9 @@ namespace CosmeticShampoo.Viewer2
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            byte[] buffer = Encoding.Unicode.GetBytes("leaveChat" + "$");
-            stream.Write(buffer, 0, buffer.Length);
-            stream.Flush();
+            //byte[] buffer = Encoding.Unicode.GetBytes("leaveChat" + "$");
+            //stream.Write(buffer, 0, buffer.Length);
+            //stream.Flush();
         }
     }
 

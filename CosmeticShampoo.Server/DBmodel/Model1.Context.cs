@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CosmeticShampoo.Server
+namespace CosmeticShampoo.Server.DBmodel
 {
     using System;
     using System.Data.Entity;

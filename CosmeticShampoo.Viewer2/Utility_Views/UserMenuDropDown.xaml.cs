@@ -37,7 +37,7 @@ namespace CosmeticShampoo.Viewer2.Utility_Views
         public UserMenuDropDown userMenuDrop { get; set; }
         private ListView listview { get; set; }
 
-        public UserMenuDropDown(ItemMenu itemMenu=null, MainWindow parent=null)
+        public UserMenuDropDown(ItemMenu itemMenu=null, MainWindow parent=null, users user=null)
         {
             this.DataContext = itemMenu;
             _parent = parent;
