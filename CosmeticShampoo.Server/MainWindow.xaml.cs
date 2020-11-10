@@ -25,6 +25,7 @@ namespace CosmeticShampoo.Server
         private UserControl_Main main { get; set; }
         private bool isHided { get; set; }
 
+        
         private System.Windows.Forms.ContextMenu menu { get; set; }
         public MainWindow()
         {
